@@ -2,6 +2,7 @@
   "name": "maplibre-gl-inspect",
   "description": "Mapbox layer for average/interpolation heatmaps",
   "version": "0.0.1",
+  "type": "module",
   "main": "./dist/maplibre-gl-inspect.js",
   "module": "./dist/maplibre-gl-inspect.js",
   "umd": "./dist/maplibre-gl-inspect.umd.cjs",
@@ -15,7 +16,6 @@
     }
   },
   "types": "./dist/maplibre-gl-inspect.d.ts",
-  "type": "module",
   "files": [
     "dist"
   ],
