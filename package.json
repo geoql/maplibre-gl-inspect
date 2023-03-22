@@ -1,0 +1,103 @@
+{
+  "name": "maplibre-gl-inspect",
+  "description": "Mapbox layer for average/interpolation heatmaps",
+  "version": "0.0.0",
+  "main": "./dist/maplibre-gl-inspect.js",
+  "module": "./dist/maplibre-gl-inspect.js",
+  "umd": "./dist/maplibre-gl-inspect.umd.cjs",
+  "unpkg": "./dist/maplibre-gl-inspect.cjs",
+  "jsdelivr": "./dist/maplibre-gl-inspect.cjs",
+  "cdn": "./dist/maplibre-gl-inspect.min.js",
+  "exports": {
+    ".": {
+      "import": "./dist/maplibre-gl-inspect.js",
+      "require": "./dist/maplibre-gl-inspect.umd.cjs"
+    }
+  },
+  "types": "./dist/maplibre-gl-inspect.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rimraf dist && vite build && prettier --write dist/*{cjs,js,ts}",
+    "test": "echo 'test!'",
+    "prepare": "husky install",
+    "lint": "npm run lint:css && npm run lint:prettier && npm run lint:eslint",
+    "lintfix": "npm run lint:css:fix && npm run lint:prettier:fix && npm run lint:eslint:fix",
+    "lint:js": "npm run lint:eslint && npm run lint:prettier",
+    "lint:eslint": "eslint \"{,!(node_modules|dist)/**/}*.{js,ts}\" --ignore-path .gitignore",
+    "lint:eslint:fix": "eslint --fix \"{,!(node_modules|dist)/**/}*.{js,ts}\" --ignore-path .gitignore",
+    "lint:prettier": "prettier --check \"{,!(node_modules|dist)/**/}*.{js,ts}\" --ignore-path .gitignore",
+    "lint:prettier:fix": "prettier --write \"{,!(node_modules|dist)/**/}*.{js,ts}\" --ignore-path .gitignore",
+    "lint:css": "stylelint '**/*.{css,scss,sass}' --ignore-path .gitignore",
+    "lint:css:fix": "stylelint --fix '**/*.{css,scss,sass}' --ignore-path .gitignore",
+    "release": "shipjs prepare",
+    "release:auto": "shipjs prepare --yes",
+    "release:dry": "shipjs prepare --dry-run"
+  },
+  "dependencies": {
+    "randomcolor": "^0.6.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.5.0",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@types/node": "^18.15.5",
+    "@types/randomcolor": "^0.5.7",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsdoc": "^40.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-security": "^1.7.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "lodash.isequal": "^4.5.0",
+    "maplibre-gl": "^2.4.0",
+    "prettier": "^2.8.6",
+    "sass": "^1.59.3",
+    "shipjs": "^0.26.1",
+    "stylelint": "^15.3.0",
+    "stylelint-config-standard": "^31.0.0",
+    "stylelint-prettier": "^3.0.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.2.1",
+    "vite-plugin-dts": "^2.1.0"
+  },
+  "peerDependencies": {
+    "maplibre-gl": "^2.4.0"
+  },
+  "keywords": [
+    "maplibre",
+    "maplibre-gl",
+    "inspect-tool",
+    "GIS",
+    "maplibre-gl-js",
+    "inspect-control",
+    "map"
+  ],
+  "author": {
+    "name": "Vinayak Kulkarni",
+    "email": "inbox.vinayak@gmail.com",
+    "url": "https://vinayakkulkarni.dev"
+  },
+  "contributors": [
+    "Andrew Calcutt",
+    "Lukas Martinelli"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.15.0",
+    "npm": ">=9.6.2"
+  },
+  "private": false,
+  "sideEffects": [
+    "*.css"
+  ],
+  "bugs": {
+    "url": "https://github.com/geoql/maplibre-gl-inspect/issues"
+  },
+  "homepage": "https://github.com/geoql/maplibre-gl-inspect#readme"
+}
