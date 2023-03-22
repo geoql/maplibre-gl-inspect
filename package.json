@@ -78,6 +78,10 @@
     "inspect-control",
     "map"
   ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "author": {
     "name": "Vinayak Kulkarni",
     "email": "inbox.vinayak@gmail.com",
