@@ -33,9 +33,9 @@ Make sure to include the CSS and JS files.
 **When using a CDN**
 
 ```html
-<script src='https://unpkg.com/maplibre-gl-inspect@latest/dist/maplibre-gl-inspect.min.js'></script>
+<script src='https://unpkg.com/maplibre-gl-inspect@latest/dist/maplibre-gl-inspect.js'></script>
+<link href='https://unpkg.com/maplibre-gl-inspect@latest/dist/maplibre-gl-inspect.css' rel='stylesheet' />
 ```
-<!-- <link href='https://unpkg.com/maplibre-gl-inspect@latest/dist/maplibre-gl-inspect.css' rel='stylesheet' /> -->
 
 **When using modules**
 
