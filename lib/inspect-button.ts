@@ -12,7 +12,7 @@ const button = () => {
   const btn = document.createElement('button');
   btn.className = 'maplibregl-ctrl-icon maplibregl-ctrl-inspect';
   btn.type = 'button';
-  btn['aria-label'] = 'Inspect';
+  btn.ariaLabel = 'Inspect';
   return btn;
 };
 

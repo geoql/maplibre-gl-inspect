@@ -1,3 +1,5 @@
+import type { Map, Popup, StyleSpecification } from 'maplibre-gl';
+import type { Options } from '../types/maplibre-gl-inspect';
 import './maplibre-gl-inspect.css';
 import isEqual from 'lodash.isequal';
 import { generateInspectStyle, generateColoredLayers } from './style-gen';
@@ -5,11 +7,14 @@ import { InspectButton } from './inspect-button';
 import { RenderPopup as renderPopup } from './render-popup';
 import { brightColor } from './colors';
 
-const isInspectStyle = (style) => {
-  return style.metadata && style.metadata['maplibregl-inspect:inspect'];
+const isInspectStyle = (style: StyleSpecification): boolean => {
+  return !!(
+    style.metadata &&
+    'maplibregl-inspect:inspect' in Object.keys(style.metadata)
+  );
 };
 
-const markInspectStyle = (style) => {
+const markInspectStyle = (style: StyleSpecification): StyleSpecification => {
   return Object.assign(style, {
     metadata: Object.assign({}, style.metadata, {
       'maplibregl-inspect:inspect': true,
@@ -17,12 +22,12 @@ const markInspectStyle = (style) => {
   });
 };
 
-const MaplibreInspect = (options) => {
+const MaplibreInspect = (options: Options) => {
   if (!(this instanceof MaplibreInspect)) {
     throw new Error('MaplibreInspect needs to be called with the new keyword');
   }
 
-  let popup = null;
+  let popup: Popup | null = null;
   if (window.maplibregl) {
     popup = new window.maplibregl.Popup({
       closeButton: false,
@@ -222,7 +227,7 @@ MaplibreInspect.prototype._onMousemove = (e) => {
   }
 };
 
-MaplibreInspect.prototype.onAdd = (map) => {
+MaplibreInspect.prototype.onAdd = (map: Map) => {
   this._map = map;
 
   // if sources have already been passed as options

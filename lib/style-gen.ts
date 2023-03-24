@@ -1,4 +1,8 @@
-import type { SourceSpecification, LayerSpecification } from 'maplibre-gl';
+import type {
+  SourceSpecification,
+  LayerSpecification,
+  StyleSpecification,
+} from 'maplibre-gl';
 
 const circleLayer = (
   color: string,
@@ -112,7 +116,11 @@ const generateColoredLayers = (
   return polyLayers.concat(lineLayers).concat(circleLayers);
 };
 
-const generateInspectStyle = (originalMapStyle, coloredLayers, opts) => {
+const generateInspectStyle = (
+  originalMapStyle: StyleSpecification,
+  coloredLayers: LayerSpecification[],
+  opts: any,
+): StyleSpecification => {
   opts = Object.assign(
     {
       backgroundColor: '#fff',

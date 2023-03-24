@@ -10,7 +10,7 @@ import randomColor from 'randomcolor';
  */
 const brightColor = (layerId: string, alpha: string): string => {
   let luminosity: 'bright' | 'dark' = 'bright';
-  let hue = null;
+  let hue: string | undefined = undefined;
 
   if (/water|ocean|lake|sea|river/.test(layerId)) {
     hue = 'blue';
