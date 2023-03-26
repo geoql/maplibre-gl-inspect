@@ -26,7 +26,7 @@ export type Options = {
   showInspectMapPopupOnHover: boolean;
   blockHoverPopupOnClick: boolean;
   backgroundColor: string;
-  assignLayerColor(layerId: string, alpha?: string): string;
+  assignLayerColor(layerId: string, alpha?: number): string;
   buildInspectStyle(
     originalMapStyle: StyleSpecification,
     coloredLayers: LayerSpecification[],

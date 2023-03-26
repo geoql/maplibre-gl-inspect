@@ -34,7 +34,7 @@ class MaplibreInspect {
   private _toggle: InspectButton;
   public options: Options;
   public sources: SourceSpecification[];
-  public assignLayerColor: (layerName: string, alpha?: number) => string;
+  public assignLayerColor: Options['assignLayerColor'];
 
   constructor(options: Options) {
     if (!(this instanceof MaplibreInspect)) {
@@ -97,13 +97,7 @@ class MaplibreInspect {
     });
   }
 
-  public toggleInspector(): void {
-    this._showInspectMap = !this._showInspectMap;
-    this.options.toggleCallback(this._showInspectMap);
-    this.render();
-  }
-
-  private _inspectStyle = (): StyleSpecification | undefined => {
+  private _inspectStyle(): StyleSpecification | undefined {
     const coloredLayers = generateColoredLayers(
       this.sources,
       this.assignLayerColor,
@@ -118,24 +112,6 @@ class MaplibreInspect {
       );
     }
     return;
-  };
-
-  public render(): void {
-    if (this._showInspectMap) {
-      if (this.options.useInspectStyle) {
-        const inspectedStyle = this._inspectStyle();
-        this._map?.setStyle(
-          markInspectStyle(inspectedStyle as StyleSpecification),
-        );
-      }
-      this._toggle.setMapIcon();
-    } else if (this._originalStyle) {
-      if (this._popup) this._popup.remove();
-      if (this.options.useInspectStyle) {
-        this._map?.setStyle(this._originalStyle);
-      }
-      this._toggle.setInspectIcon();
-    }
   }
 
   private _onSourceChange(e: {
@@ -259,6 +235,30 @@ class MaplibreInspect {
       } else {
         this._popup?.remove();
       }
+    }
+  }
+
+  public toggleInspector(): void {
+    this._showInspectMap = !this._showInspectMap;
+    this.options.toggleCallback(this._showInspectMap);
+    this.render();
+  }
+
+  public render(): void {
+    if (this._showInspectMap) {
+      if (this.options.useInspectStyle) {
+        const inspectedStyle = this._inspectStyle();
+        this._map?.setStyle(
+          markInspectStyle(inspectedStyle as StyleSpecification),
+        );
+      }
+      this._toggle.setMapIcon();
+    } else if (this._originalStyle) {
+      if (this._popup) this._popup.remove();
+      if (this.options.useInspectStyle) {
+        this._map?.setStyle(this._originalStyle);
+      }
+      this._toggle.setInspectIcon();
     }
   }
 

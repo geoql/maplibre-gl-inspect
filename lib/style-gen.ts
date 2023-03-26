@@ -7,6 +7,7 @@ import type {
   LineLayerSpecification,
   BackgroundLayerSpecification,
 } from 'maplibre-gl';
+import type { Options } from '../types/maplibre-gl-inspect';
 
 const circleLayer = (
   color: string,
@@ -76,7 +77,7 @@ const lineLayer = (
 
 const generateColoredLayers = (
   sources: SourceSpecification[],
-  assignLayerColor: (layerName: string, alpha?: number) => string,
+  assignLayerColor: Options['assignLayerColor'],
 ): (
   | FillLayerSpecification
   | LineLayerSpecification
