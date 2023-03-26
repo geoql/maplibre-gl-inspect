@@ -39,9 +39,9 @@ const polygonLayer = (
     source,
     type: 'fill',
     paint: {
-      'fill-color': color,
       'fill-antialias': true,
-      'fill-outline-color': color,
+      'fill-color': color,
+      'fill-outline-color': outlineColor,
     },
     filter: ['==', '$type', 'Polygon'],
   };
@@ -76,7 +76,7 @@ const lineLayer = (
 
 const generateColoredLayers = (
   sources: SourceSpecification[],
-  assignLayerColor,
+  assignLayerColor: (layerName: string, alpha?: number) => string,
 ): (
   | FillLayerSpecification
   | LineLayerSpecification
@@ -86,7 +86,7 @@ const generateColoredLayers = (
   const circleLayers: CircleLayerSpecification[] = [];
   const lineLayers: LineLayerSpecification[] = [];
 
-  const alphaColors = (layerId: string | LayerSpecification) => {
+  const alphaColors = (layerId: string) => {
     const color = assignLayerColor.bind(null, layerId);
     const obj = {
       circle: color(0.8),
@@ -127,7 +127,7 @@ const generateColoredLayers = (
 const generateInspectStyle = (
   originalMapStyle: StyleSpecification,
   coloredLayers: LayerSpecification[],
-  opts: unknown,
+  opts: any,
 ): StyleSpecification => {
   opts = Object.assign(
     {

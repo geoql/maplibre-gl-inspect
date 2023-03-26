@@ -34,7 +34,7 @@ class MaplibreInspect {
   private _toggle: InspectButton;
   public options: Options;
   public sources: SourceSpecification[];
-  public assignLayerColor: (layerName: string, alpha?: string) => string;
+  public assignLayerColor: (layerName: string, alpha?: number) => string;
 
   constructor(options: Options) {
     if (!(this instanceof MaplibreInspect)) {
