@@ -2,14 +2,18 @@ import type {
   SourceSpecification,
   LayerSpecification,
   StyleSpecification,
+  CircleLayerSpecification,
+  FillLayerSpecification,
+  LineLayerSpecification,
+  BackgroundLayerSpecification,
 } from 'maplibre-gl';
 
 const circleLayer = (
   color: string,
-  source: string | SourceSpecification,
-  vectorLayer?: LayerSpecification,
+  source: string,
+  vectorLayer?: string | undefined,
 ) => {
-  const layer = {
+  const layer: CircleLayerSpecification = {
     id: [source, vectorLayer, 'circle'].join('_'),
     source,
     type: 'circle',
@@ -27,10 +31,10 @@ const circleLayer = (
 const polygonLayer = (
   color: string,
   outlineColor: string,
-  source: string | SourceSpecification,
-  vectorLayer?: LayerSpecification,
+  source: string,
+  vectorLayer?: string | undefined,
 ) => {
-  const layer = {
+  const layer: FillLayerSpecification = {
     id: [source, vectorLayer, 'polygon'].join('_'),
     source,
     type: 'fill',
@@ -48,10 +52,10 @@ const polygonLayer = (
 };
 const lineLayer = (
   color: string,
-  source: string | SourceSpecification,
-  vectorLayer?: LayerSpecification,
+  source: string,
+  vectorLayer?: string | undefined,
 ) => {
-  const layer = {
+  const layer: LineLayerSpecification = {
     id: [source, vectorLayer, 'line'].join('_'),
     source,
     layout: {
@@ -73,10 +77,14 @@ const lineLayer = (
 const generateColoredLayers = (
   sources: SourceSpecification[],
   assignLayerColor,
-): LayerSpecification[] => {
-  const polyLayers: LayerSpecification[] = [];
-  const circleLayers: LayerSpecification[] = [];
-  const lineLayers: LayerSpecification[] = [];
+): (
+  | FillLayerSpecification
+  | LineLayerSpecification
+  | CircleLayerSpecification
+)[] => {
+  const polyLayers: FillLayerSpecification[] = [];
+  const circleLayers: CircleLayerSpecification[] = [];
+  const lineLayers: LineLayerSpecification[] = [];
 
   const alphaColors = (layerId: string | LayerSpecification) => {
     const color = assignLayerColor.bind(null, layerId);
@@ -91,7 +99,7 @@ const generateColoredLayers = (
   };
 
   Object.keys(sources).forEach((sourceId) => {
-    const layers = sources[`${sourceId}`];
+    const layers = sources[sourceId];
 
     if (!layers || layers.length === 0) {
       const colors = alphaColors(sourceId);
@@ -101,7 +109,7 @@ const generateColoredLayers = (
         polygonLayer(colors.polygon, colors.polygonOutline, sourceId),
       );
     } else {
-      layers.forEach((layer: LayerSpecification) => {
+      layers.forEach((layer: string) => {
         const colors = alphaColors(layer);
 
         circleLayers.push(circleLayer(colors.circle, sourceId, layer));
@@ -113,13 +121,13 @@ const generateColoredLayers = (
     }
   });
 
-  return polyLayers.concat(lineLayers).concat(circleLayers);
+  return [...polyLayers, ...lineLayers, ...circleLayers];
 };
 
 const generateInspectStyle = (
   originalMapStyle: StyleSpecification,
   coloredLayers: LayerSpecification[],
-  opts: any,
+  opts: unknown,
 ): StyleSpecification => {
   opts = Object.assign(
     {
@@ -128,7 +136,7 @@ const generateInspectStyle = (
     opts,
   );
 
-  const backgroundLayer = {
+  const backgroundLayer: BackgroundLayerSpecification = {
     id: 'background',
     type: 'background',
     paint: {
@@ -140,14 +148,14 @@ const generateInspectStyle = (
   Object.keys(originalMapStyle.sources).forEach((sourceId) => {
     const source = originalMapStyle.sources[`${sourceId}`];
     if (source.type === 'vector' || source.type === 'geojson') {
-      sources[`${sourceId}`] = source;
+      sources[sourceId] = source;
     }
   });
-
-  return Object.assign(originalMapStyle, {
-    layers: [backgroundLayer].concat(coloredLayers),
+  return {
+    ...originalMapStyle,
+    layers: [backgroundLayer, ...coloredLayers],
     sources,
-  });
+  };
 };
 
 export { generateInspectStyle, generateColoredLayers };

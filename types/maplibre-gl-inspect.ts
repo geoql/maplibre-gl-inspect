@@ -5,6 +5,18 @@ import type {
   StyleSpecification,
 } from 'maplibre-gl';
 
+export type RenderPopupProperty = {
+  [x: string]: null | undefined | string | number | object | Date;
+};
+
+export type RenderPopupFeature = {
+  source: string;
+  sourceLayer?: string;
+  layer: { [x: string]: string; source: string };
+  geometry: { type: string };
+  properties: RenderPopupProperty;
+};
+
 export type Options = {
   showInspectMap: boolean;
   showInspectButton: boolean;
@@ -20,7 +32,7 @@ export type Options = {
     coloredLayers: LayerSpecification[],
     opts: any,
   ): StyleSpecification;
-  renderPopup(features: any): string;
+  renderPopup(features: RenderPopupFeature[]): string;
   popup: Popup;
   selectThreshold: number;
   useInspectStyle: boolean;

@@ -1,6 +1,11 @@
-import type { MapGeoJSONFeature } from 'maplibre-gl';
+import {
+  RenderPopupFeature,
+  RenderPopupProperty,
+} from '../types/maplibre-gl-inspect';
 
-const displayValue = (value: string | null) => {
+const displayValue = (
+  value: RenderPopupProperty[keyof RenderPopupProperty],
+) => {
   if (typeof value === 'undefined' || value === null) return value;
   if (value instanceof Date) return value.toLocaleString();
   if (
@@ -12,7 +17,12 @@ const displayValue = (value: string | null) => {
   return value;
 };
 
-const renderProperty = (propertyName: string, property: any) => {
+const renderProperty = <
+  T extends RenderPopupProperty[keyof RenderPopupProperty],
+>(
+  propertyName: string,
+  property: T,
+) => {
   return (
     `${
       '<div class="maplibregl-inspect-property">' +
@@ -25,35 +35,31 @@ const renderProperty = (propertyName: string, property: any) => {
   );
 };
 
-const renderLayer = (layerId: any) => {
+const renderLayer = (layerId: string) => {
   return `<div class="maplibregl-inspect-layer">${layerId}</div>`;
 };
 
-const renderProperties = (feature: {
-  layer: { [x: string]: any; source: any };
-  geometry: { type: any };
-  properties: { [x: string]: any };
-}) => {
+const renderProperties = (feature: RenderPopupFeature) => {
   const sourceProperty = renderLayer(
     feature.layer['source-layer'] || feature.layer.source,
   );
-  const typeProperty = renderProperty('$type', feature.geometry.type);
+  const typeProperty = renderProperty<string>('$type', feature.geometry.type);
   const properties = Object.keys(feature.properties).map((propertyName) =>
     renderProperty(propertyName, feature.properties[`${propertyName}`]),
   );
   return [sourceProperty, typeProperty].concat(properties).join('');
 };
 
-const renderFeatures = (features: any[]) => {
+const renderFeatures = (features: RenderPopupFeature[]) => {
   return features
     .map(
-      (ft: any) =>
+      (ft: RenderPopupFeature) =>
         `<div class="maplibregl-inspect-feature">${renderProperties(ft)}</div>`,
     )
     .join('');
 };
 
-const renderPopup = (features: MapGeoJSONFeature[]) => {
+const renderPopup = (features: RenderPopupFeature[]) => {
   return `<div class="maplibregl-inspect-popup">${renderFeatures(
     features,
   )}</div>`;
