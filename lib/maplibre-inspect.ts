@@ -237,10 +237,7 @@ class MaplibreInspect {
         if (this._popup) {
           this._popup
             .setLngLat((e as MapMouseEvent).lngLat)
-            .setDOMContent(
-              'acb',
-              // this.options.renderPopup(feature, featureLayer, featureSourceId),
-            )
+            .setDOMContent(this.options.renderPopup(feature))
             .addTo(this._map);
         }
       } else if (this._popup) {
