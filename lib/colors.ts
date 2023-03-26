@@ -8,7 +8,7 @@ import randomColor from 'randomcolor';
  * @param {string} alpha - Alpha value for the color
  * @returns {string} Unique random for the layer ID
  */
-const brightColor = (layerId: string, alpha: string): string => {
+const brightColor = (layerId: string, alpha?: string): string => {
   let luminosity: 'bright' | 'dark' = 'bright';
   let hue: string | undefined = undefined;
 

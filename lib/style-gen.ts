@@ -73,10 +73,10 @@ const lineLayer = (
 const generateColoredLayers = (
   sources: SourceSpecification[],
   assignLayerColor,
-) => {
-  const polyLayers = [];
-  const circleLayers = [];
-  const lineLayers = [];
+): LayerSpecification[] => {
+  const polyLayers: LayerSpecification[] = [];
+  const circleLayers: LayerSpecification[] = [];
+  const lineLayers: LayerSpecification[] = [];
 
   const alphaColors = (layerId: string | LayerSpecification) => {
     const color = assignLayerColor.bind(null, layerId);

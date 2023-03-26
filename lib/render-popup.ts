@@ -1,4 +1,6 @@
-const displayValue = (value): string => {
+import type { MapGeoJSONFeature } from 'maplibre-gl';
+
+const displayValue = (value: string | null) => {
   if (typeof value === 'undefined' || value === null) return value;
   if (value instanceof Date) return value.toLocaleString();
   if (
@@ -10,7 +12,7 @@ const displayValue = (value): string => {
   return value;
 };
 
-const renderProperty = (propertyName, property) => {
+const renderProperty = (propertyName: string, property: any) => {
   return (
     `${
       '<div class="maplibregl-inspect-property">' +
@@ -23,11 +25,15 @@ const renderProperty = (propertyName, property) => {
   );
 };
 
-const renderLayer = (layerId) => {
+const renderLayer = (layerId: any) => {
   return `<div class="maplibregl-inspect-layer">${layerId}</div>`;
 };
 
-const renderProperties = (feature) => {
+const renderProperties = (feature: {
+  layer: { [x: string]: any; source: any };
+  geometry: { type: any };
+  properties: { [x: string]: any };
+}) => {
   const sourceProperty = renderLayer(
     feature.layer['source-layer'] || feature.layer.source,
   );
@@ -38,19 +44,19 @@ const renderProperties = (feature) => {
   return [sourceProperty, typeProperty].concat(properties).join('');
 };
 
-const renderFeatures = (features) => {
+const renderFeatures = (features: any[]) => {
   return features
     .map(
-      (ft) =>
+      (ft: any) =>
         `<div class="maplibregl-inspect-feature">${renderProperties(ft)}</div>`,
     )
     .join('');
 };
 
-const renderPopup = (features) => {
+const renderPopup = (features: MapGeoJSONFeature[]) => {
   return `<div class="maplibregl-inspect-popup">${renderFeatures(
     features,
   )}</div>`;
 };
 
-export { renderPopup as RenderPopup };
+export { renderPopup };

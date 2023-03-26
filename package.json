@@ -21,7 +21,8 @@
   },
   "types": "./dist/maplibre-gl-inspect.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "scripts": {
     "build": "rimraf dist && vite build && prettier --write dist/*{cjs,js,ts}",

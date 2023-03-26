@@ -1,4 +1,5 @@
 import type {
+  LayerSpecification,
   Popup,
   SourceSpecification,
   StyleSpecification,
@@ -13,13 +14,17 @@ export type Options = {
   showInspectMapPopupOnHover: boolean;
   blockHoverPopupOnClick: boolean;
   backgroundColor: string;
-  assignLayerColor: string;
-  buildInspectStyle: StyleSpecification;
-  renderPopup: string;
+  assignLayerColor(layerId: string, alpha?: string): string;
+  buildInspectStyle(
+    originalMapStyle: StyleSpecification,
+    coloredLayers: LayerSpecification[],
+    opts: any,
+  ): StyleSpecification;
+  renderPopup(features: any): string;
   popup: Popup;
   selectThreshold: number;
   useInspectStyle: boolean;
   queryParameters: Record<string, string>;
   sources: SourceSpecification[];
-  toggleCallback(): void;
+  toggleCallback(showInspectMap?: boolean): void;
 };
