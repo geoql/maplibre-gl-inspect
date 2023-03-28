@@ -10,7 +10,6 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/geoql/maplibre-gl-inspect)](https://github.com/geoql/maplibre-gl-inspect/graphs/contributors)
 [![npm type definitions](https://img.shields.io/npm/types/maplibre-gl-inspect?logo=typescript)](https://github.com/vinayakkulkarni/maplibre-gl-inspect/blob/main/package.json)
 [![npm](https://img.shields.io/npm/dt/maplibre-gl-inspect?logo=npm)](http://npm-stat.com/charts.html?package=maplibre-gl-inspect)
-
 [![npm](https://img.shields.io/npm/dw/maplibre-gl-inspect?logo=npm)](http://npm-stat.com/charts.html?package=maplibre-gl-inspect)
 [![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/maplibre-gl-inspect)](https://bundlephobia.com/package/maplibre-gl-inspect@latest)
 
