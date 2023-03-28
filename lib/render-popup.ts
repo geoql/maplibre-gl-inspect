@@ -1,4 +1,11 @@
-const displayValue = (value): string => {
+import {
+  RenderPopupFeature,
+  RenderPopupProperty,
+} from '../types/maplibre-gl-inspect';
+
+const displayValue = (
+  value: RenderPopupProperty[keyof RenderPopupProperty],
+) => {
   if (typeof value === 'undefined' || value === null) return value;
   if (value instanceof Date) return value.toLocaleString();
   if (
@@ -10,7 +17,12 @@ const displayValue = (value): string => {
   return value;
 };
 
-const renderProperty = (propertyName, property) => {
+const renderProperty = <
+  T extends RenderPopupProperty[keyof RenderPopupProperty],
+>(
+  propertyName: string,
+  property: T,
+) => {
   return (
     `${
       '<div class="maplibregl-inspect-property">' +
@@ -23,34 +35,34 @@ const renderProperty = (propertyName, property) => {
   );
 };
 
-const renderLayer = (layerId) => {
+const renderLayer = (layerId: string) => {
   return `<div class="maplibregl-inspect-layer">${layerId}</div>`;
 };
 
-const renderProperties = (feature) => {
+const renderProperties = (feature: RenderPopupFeature) => {
   const sourceProperty = renderLayer(
     feature.layer['source-layer'] || feature.layer.source,
   );
-  const typeProperty = renderProperty('$type', feature.geometry.type);
+  const typeProperty = renderProperty<string>('$type', feature.geometry.type);
   const properties = Object.keys(feature.properties).map((propertyName) =>
     renderProperty(propertyName, feature.properties[`${propertyName}`]),
   );
   return [sourceProperty, typeProperty].concat(properties).join('');
 };
 
-const renderFeatures = (features) => {
+const renderFeatures = (features: RenderPopupFeature[]) => {
   return features
     .map(
-      (ft) =>
+      (ft: RenderPopupFeature) =>
         `<div class="maplibregl-inspect-feature">${renderProperties(ft)}</div>`,
     )
     .join('');
 };
 
-const renderPopup = (features) => {
+const renderPopup = (features: RenderPopupFeature[]) => {
   return `<div class="maplibregl-inspect-popup">${renderFeatures(
     features,
   )}</div>`;
 };
 
-export { renderPopup as RenderPopup };
+export { renderPopup };

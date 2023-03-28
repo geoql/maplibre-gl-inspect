@@ -5,12 +5,12 @@ import randomColor from 'randomcolor';
  * common layer names such as water or wood.
  *
  * @param {string} layerId - Unique layer ID
- * @param {string} alpha - Alpha value for the color
+ * @param {number} alpha - Alpha value for the color
  * @returns {string} Unique random for the layer ID
  */
-const brightColor = (layerId: string, alpha: string): string => {
+const brightColor = (layerId: string, alpha?: number): string => {
   let luminosity: 'bright' | 'dark' = 'bright';
-  let hue = null;
+  let hue: string | undefined = undefined;
 
   if (/water|ocean|lake|sea|river/.test(layerId)) {
     hue = 'blue';
