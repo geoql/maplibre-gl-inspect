@@ -1,3 +1,12 @@
+## [0.0.6](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.5...v0.0.6) (2023-03-28)
+
+
+### Bug Fixes
+
+* e.sourceDataType doesn't have `visibility` typing ([4c5f9ff](https://github.com/geoql/maplibre-gl-inspect/commit/4c5f9ff9a889262ebe3c3af7cf16876953f70341))
+
+
+
 ## [0.0.5](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.4...v0.0.5) (2023-03-28)
 
 
