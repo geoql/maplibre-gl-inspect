@@ -9,6 +9,7 @@
   "unpkg": "./dist/maplibre-gl-inspect.cjs",
   "jsdelivr": "./dist/maplibre-gl-inspect.cjs",
   "cdn": "./dist/maplibre-gl-inspect.min.js",
+  "types": "./dist/maplibre-gl-inspect.d.ts",
   "exports": {
     ".": {
       "import": "./dist/maplibre-gl-inspect.js",
@@ -19,7 +20,6 @@
       "require": "./dist/maplibre-gl-inspect.css"
     }
   },
-  "types": "./dist/maplibre-gl-inspect.d.ts",
   "files": [
     "dist",
     "types"
@@ -97,17 +97,17 @@
     "Andrew Calcutt",
     "Lukas Martinelli"
   ],
-  "license": "MIT",
   "engines": {
     "node": ">=18.15.0",
     "npm": ">=9.6.2"
   },
-  "private": false,
   "sideEffects": [
     "*.css"
   ],
   "bugs": {
     "url": "https://github.com/geoql/maplibre-gl-inspect/issues"
   },
+  "license": "MIT",
+  "private": false,
   "homepage": "https://github.com/geoql/maplibre-gl-inspect#readme"
 }

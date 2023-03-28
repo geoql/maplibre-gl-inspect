@@ -5,8 +5,14 @@
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoql/maplibre-gl-inspect/codeql.yml?logo=lgtm&logoWidth=18)](https://github.com/geoql/maplibre-gl-inspect/actions/workflows/codeql.yml)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoql/maplibre-gl-inspect/shipjs-trigger.yml?label=⛴%20Ship.js%20trigger)](https://github.com/geoql/maplibre-gl-inspect/actions/workflows/shipjs-trigger.yml)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/geoql/maplibre-gl-inspect?sort=semver&logo=github)](https://github.com/geoql/maplibre-gl-inspect/releases)
+[![npm](https://img.shields.io/npm/v/maplibre-gl-inspect?logo=npm)](https://www.npmjs.com/package/maplibre-gl-inspect)
 [![DeepScan grade](https://deepscan.io/api/teams/15032/projects/24288/branches/745727/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=15032&pid=24288&bid=745727)
 [![GitHub contributors](https://img.shields.io/github/contributors/geoql/maplibre-gl-inspect)](https://github.com/geoql/maplibre-gl-inspect/graphs/contributors)
+[![npm type definitions](https://img.shields.io/npm/types/maplibre-gl-inspect?logo=typescript)](https://github.com/vinayakkulkarni/maplibre-gl-inspect/blob/main/package.json)
+[![npm](https://img.shields.io/npm/dt/maplibre-gl-inspect?logo=npm)](http://npm-stat.com/charts.html?package=maplibre-gl-inspect)
+
+[![npm](https://img.shields.io/npm/dw/maplibre-gl-inspect?logo=npm)](http://npm-stat.com/charts.html?package=maplibre-gl-inspect)
+[![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/maplibre-gl-inspect)](https://bundlephobia.com/package/maplibre-gl-inspect@latest)
 
 [![vite](https://img.shields.io/github/package-json/dependency-version/geoql/maplibre-gl-inspect/dev/vite?logo=vite)](https://vitejs.dev)
 [![maplibre-gl](https://img.shields.io/github/package-json/dependency-version/geoql/maplibre-gl-inspect/dev/maplibre-gl)](https://maplibre.org/maplibre-gl-js-docs/api/)
