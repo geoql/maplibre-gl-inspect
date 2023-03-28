@@ -1,8 +1,8 @@
 import type {
-  LayerSpecification,
-  Popup,
   SourceSpecification,
+  LayerSpecification,
   StyleSpecification,
+  Popup,
 } from 'maplibre-gl';
 
 export type RenderPopupProperty = {
@@ -37,6 +37,6 @@ export type Options = {
   selectThreshold: number;
   useInspectStyle: boolean;
   queryParameters: Record<string, string>;
-  sources: SourceSpecification[];
+  sources: { [_: string]: SourceSpecification | string[] };
   toggleCallback(showInspectMap?: boolean): void;
 };

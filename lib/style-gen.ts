@@ -76,7 +76,7 @@ const lineLayer = (
 };
 
 const generateColoredLayers = (
-  sources: SourceSpecification[],
+  sources: Options['sources'],
   assignLayerColor: Options['assignLayerColor'],
 ): (
   | FillLayerSpecification
@@ -100,7 +100,7 @@ const generateColoredLayers = (
   };
 
   Object.keys(sources).forEach((sourceId) => {
-    const layers = sources[sourceId];
+    const layers = sources[`${sourceId}`] as string[];
 
     if (!layers || layers.length === 0) {
       const colors = alphaColors(sourceId);
@@ -145,13 +145,16 @@ const generateInspectStyle = (
     },
   };
 
-  const sources = {};
+  const sources = {} as {
+    [_: string]: SourceSpecification;
+  };
   Object.keys(originalMapStyle.sources).forEach((sourceId) => {
     const source = originalMapStyle.sources[`${sourceId}`];
     if (source.type === 'vector' || source.type === 'geojson') {
-      sources[sourceId] = source;
+      sources[`${sourceId}`] = source;
     }
   });
+
   return {
     ...originalMapStyle,
     layers: [backgroundLayer, ...coloredLayers],
