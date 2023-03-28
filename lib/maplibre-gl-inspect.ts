@@ -216,14 +216,14 @@ class MaplibreInspect {
         ];
       }
       const features =
-        this._map?.queryRenderedFeatures(
+        this._map.queryRenderedFeatures(
           queryBox,
           this.options.queryParameters,
         ) || [];
 
       this._map.getCanvas().style.cursor = features.length ? 'pointer' : '';
 
-      if (features && features.length > 0) {
+      if (features.length > 0) {
         const renderedPopup = this.options.renderPopup(
           features as unknown as RenderPopupFeature[],
         );
