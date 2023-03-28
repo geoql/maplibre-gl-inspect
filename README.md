@@ -1,15 +1,15 @@
 # Maplibre GL Inspect
 
 <!-- Badges -->
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoql/maplibre-gl-inspect/ci.yml?logo=github-actions)](https://github.com/geoql/maplibre-gl-inspect/actions/workflows/ci.yml)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoql/maplibre-gl-inspect/shipjs-trigger.yml?label=⛴%20Ship.js%20trigger)](https://github.com/geoql/maplibre-gl-inspect/actions/workflows/shipjs-trigger.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoql/maplibre-gl-inspect/pipeline.yml?logo=github-actions)](https://github.com/geoql/maplibre-gl-inspect/actions/workflows/pipeline.yml)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoql/maplibre-gl-inspect/codeql.yml?logo=lgtm&logoWidth=18)](https://github.com/geoql/maplibre-gl-inspect/actions/workflows/codeql.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/geoql/maplibre-gl-inspect/shipjs-trigger.yml?label=⛴%20Ship.js%20trigger)](https://github.com/geoql/maplibre-gl-inspect/actions/workflows/shipjs-trigger.yml)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/geoql/maplibre-gl-inspect?sort=semver&logo=github)](https://github.com/geoql/maplibre-gl-inspect/releases)
-[![DeepScan grade]()]()
+[![DeepScan grade](https://deepscan.io/api/teams/15032/projects/24288/branches/745727/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=15032&pid=24288&bid=745727)
 [![GitHub contributors](https://img.shields.io/github/contributors/geoql/maplibre-gl-inspect)](https://github.com/geoql/maplibre-gl-inspect/graphs/contributors)
 
 [![vite](https://img.shields.io/github/package-json/dependency-version/geoql/maplibre-gl-inspect/dev/vite?logo=vite)](https://vitejs.dev)
-[![maplibre-gl](https://img.shields.io/github/package-json/dependency-version/geoql/maplibre-gl-inspect/maplibre-gl)](https://maplibre.org/maplibre-gl-js-docs/api/)
+[![maplibre-gl](https://img.shields.io/github/package-json/dependency-version/geoql/maplibre-gl-inspect/dev/maplibre-gl)](https://maplibre.org/maplibre-gl-js-docs/api/)
 [![husky](https://img.shields.io/github/package-json/dependency-version/geoql/maplibre-gl-inspect/dev/vite?label=🐶%20dependency)](https://typicode.github.io/husky/#/)
 [![eslint](https://img.shields.io/github/package-json/dependency-version/geoql/maplibre-gl-inspect/dev/eslint?logo=eslint)](https://eslint.org/)
 [![prettier](https://img.shields.io/github/package-json/dependency-version/geoql/maplibre-gl-inspect/dev/prettier?logo=prettier)](https://prettier.io/)
