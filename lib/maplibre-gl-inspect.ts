@@ -232,16 +232,17 @@ class MaplibreInspect {
 
       this._map.getCanvas().style.cursor = features.length ? 'pointer' : '';
 
-      if (features.length > 0) {
+      if (features.length > 0 && this._popup instanceof maplibregl.Popup) {
+        this._popup.setLngLat((e as MapMouseEvent).lngLat);
         const renderedPopup = this.options.renderPopup(
           features as unknown as RenderPopupFeature[],
         );
         if (typeof renderedPopup === 'string') {
-          this._popup?.setHTML(renderedPopup);
+          this._popup.setHTML(renderedPopup);
         } else {
-          this._popup?.setDOMContent(renderedPopup);
+          this._popup.setDOMContent(renderedPopup);
         }
-        this._popup?.addTo(this._map);
+        this._popup.addTo(this._map);
       } else {
         this._popup?.remove();
       }
@@ -265,10 +266,10 @@ class MaplibreInspect {
       this._toggle.setMapIcon();
     }
     if (!this._showInspectMap && this._originalStyle) {
-      if (this._popup) this._popup.remove();
       if (this.options.useInspectStyle) {
         this._map?.setStyle(this._originalStyle);
       }
+      if (this._popup) this._popup.remove();
       this._toggle.setInspectIcon();
     }
   }
