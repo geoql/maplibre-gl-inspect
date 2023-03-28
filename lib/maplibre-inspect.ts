@@ -1,4 +1,4 @@
-import maplibregl, { MapMouseEvent, SourceSpecification } from 'maplibre-gl';
+import maplibregl, { MapMouseEvent } from 'maplibre-gl';
 import type { Map, Popup, PointLike, StyleSpecification } from 'maplibre-gl';
 import type { Options, RenderPopupFeature } from '../types/maplibre-gl-inspect';
 import './maplibre-gl-inspect.css';
@@ -33,7 +33,7 @@ class MaplibreInspect {
   private _originalStyle: StyleSpecification | null;
   private _toggle: InspectButton;
   public options: Options;
-  public sources: SourceSpecification[];
+  public sources: Options['sources'];
   public assignLayerColor: Options['assignLayerColor'];
 
   constructor(options: Options) {
@@ -55,8 +55,8 @@ class MaplibreInspect {
       );
     }
 
-    this.options = Object.assign(
-      {
+    this.options = {
+      ...{
         showInspectMap: false,
         showInspectButton: true,
         showInspectMapPopup: true,
@@ -73,11 +73,12 @@ class MaplibreInspect {
         useInspectStyle: true,
         queryParameters: {},
         sources: {},
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        toggleCallback() {},
+        toggleCallback(showInspect: boolean) {
+          console.log('Inspector status?: ', showInspect);
+        },
       },
-      options,
-    );
+      ...options,
+    };
 
     this.sources = this.options.sources;
     this.assignLayerColor = this.options.assignLayerColor;
@@ -134,15 +135,15 @@ class MaplibreInspect {
           };
           const layerIds = sourceCache._source.vectorLayerIds;
           if (layerIds) {
-            sources[sourceId] = layerIds;
+            sources[`${sourceId}`] = layerIds;
           } else if (sourceCache._source.type === 'geojson') {
-            sources[sourceId] = [];
+            sources[`${sourceId}`] = [];
           }
         });
 
         Object.keys(sources).forEach((sourceId) => {
           if (mapStyleSourcesNames.indexOf(sourceId) === -1) {
-            delete sources[sourceId];
+            delete sources[`${sourceId}`];
           }
         });
 
