@@ -1,3 +1,12 @@
+## [0.0.4](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.3...v0.0.4) (2023-03-28)
+
+
+### Bug Fixes
+
+* issue with typings ([6d93f27](https://github.com/geoql/maplibre-gl-inspect/commit/6d93f27e3807105392aba3e8ff1403b490a9c0eb))
+
+
+
 ## [0.0.3](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.2...v0.0.3) (2023-03-28)
 
 
