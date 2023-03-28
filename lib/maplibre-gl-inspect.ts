@@ -1,5 +1,12 @@
-import maplibregl, { MapMouseEvent } from 'maplibre-gl';
-import type { Map, Popup, PointLike, StyleSpecification } from 'maplibre-gl';
+import maplibregl from 'maplibre-gl';
+import type {
+  Map,
+  Popup,
+  PointLike,
+  MapMouseEvent,
+  MapSourceDataEvent,
+  StyleSpecification,
+} from 'maplibre-gl';
 import type { Options, RenderPopupFeature } from '../types/maplibre-gl-inspect';
 import './maplibre-gl-inspect.css';
 import isEqual from 'lodash.isequal';
@@ -9,18 +16,23 @@ import { renderPopup } from './render-popup';
 import { brightColor } from './colors';
 
 const isInspectStyle = (style: StyleSpecification): boolean => {
-  return !!(
+  if (
     style.metadata &&
     'maplibregl-inspect:inspect' in Object.keys(style.metadata)
-  );
+  ) {
+    return true;
+  }
+  return false;
 };
 
 const markInspectStyle = (style: StyleSpecification): StyleSpecification => {
-  return Object.assign(style, {
+  const updatedStyle = {
+    ...style,
     metadata: Object.assign({}, style.metadata, {
       'maplibregl-inspect:inspect': true,
     }),
-  });
+  };
+  return updatedStyle;
 };
 
 class MaplibreInspect {
@@ -87,7 +99,7 @@ class MaplibreInspect {
     this._popupBlocked = false;
     this._showInspectMap = this.options.showInspectMap;
     this._onSourceChange = this._onSourceChange.bind(this);
-    this._onMousemove = this._onMousemove.bind(this);
+    this._onMouseMove = this._onMouseMove.bind(this);
     this._onRightClick = this._onRightClick.bind(this);
     this._onStyleChange = this._onStyleChange.bind(this);
 
@@ -98,13 +110,14 @@ class MaplibreInspect {
     });
   }
 
-  private _inspectStyle(): StyleSpecification | undefined {
-    const coloredLayers = generateColoredLayers(
-      this.sources,
-      this.assignLayerColor,
-    );
+  private _inspectStyle(): StyleSpecification {
+    let style = this._map?.getStyle();
     if (this._map) {
-      return this.options.buildInspectStyle(
+      const coloredLayers = generateColoredLayers(
+        this.sources,
+        this.assignLayerColor,
+      );
+      style = this.options.buildInspectStyle(
         this._map.getStyle(),
         coloredLayers,
         {
@@ -112,13 +125,10 @@ class MaplibreInspect {
         },
       );
     }
-    return;
+    return style as StyleSpecification;
   }
 
-  private _onSourceChange(e: {
-    sourceDataType: string;
-    isSourceLoaded: boolean;
-  }) {
+  private _onSourceChange(e: MapSourceDataEvent) {
     const sources = this.sources;
     if (this._map) {
       const map = this._map;
@@ -140,7 +150,6 @@ class MaplibreInspect {
             sources[`${sourceId}`] = [];
           }
         });
-
         Object.keys(sources).forEach((sourceId) => {
           if (mapStyleSourcesNames.indexOf(sourceId) === -1) {
             delete sources[`${sourceId}`];
@@ -174,7 +183,7 @@ class MaplibreInspect {
     }
   }
 
-  private _onMousemove(e: MouseEvent | MapMouseEvent) {
+  private _onMouseMove(e: MouseEvent | MapMouseEvent) {
     if (this._showInspectMap) {
       if (!this.options.showInspectMapPopup) return;
       if (e.type === 'mousemove' && !this.options.showInspectMapPopupOnHover)
@@ -254,7 +263,8 @@ class MaplibreInspect {
         );
       }
       this._toggle.setMapIcon();
-    } else if (this._originalStyle) {
+    }
+    if (!this._showInspectMap && this._originalStyle) {
       if (this._popup) this._popup.remove();
       if (this.options.useInspectStyle) {
         this._map?.setStyle(this._originalStyle);
@@ -269,14 +279,14 @@ class MaplibreInspect {
     // if sources have already been passed as options
     // we do not need to figure out the sources ourselves
     if (Object.keys(this.sources).length === 0) {
-      map.on('tiledata', this._onSourceChange);
+      // map.on('tiledata', this._onSourceChange);
       map.on('sourcedata', this._onSourceChange);
     }
 
     map.on('styledata', this._onStyleChange);
     map.on('load', this._onStyleChange);
-    map.on('mousemove', this._onMousemove);
-    map.on('click', this._onMousemove);
+    map.on('mousemove', this._onMouseMove);
+    map.on('click', this._onMouseMove);
     map.on('contextmenu', this._onRightClick);
     return this._toggle.elem;
   }
@@ -284,10 +294,10 @@ class MaplibreInspect {
   public onRemove() {
     this._map?.off('styledata', this._onStyleChange);
     this._map?.off('load', this._onStyleChange);
-    this._map?.off('tiledata', this._onSourceChange);
+    // this._map?.off('tiledata', this._onSourceChange);
     this._map?.off('sourcedata', this._onSourceChange);
-    this._map?.off('mousemove', this._onMousemove);
-    this._map?.off('click', this._onMousemove);
+    this._map?.off('mousemove', this._onMouseMove);
+    this._map?.off('click', this._onMouseMove);
     this._map?.off('contextmenu', this._onRightClick);
 
     const elem = this._toggle.elem;
