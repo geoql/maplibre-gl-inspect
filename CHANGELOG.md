@@ -1,3 +1,12 @@
+## [0.0.5](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.4...v0.0.5) (2023-03-28)
+
+
+### Bug Fixes
+
+* issues resolved found on deepscan.io ([6c5a97a](https://github.com/geoql/maplibre-gl-inspect/commit/6c5a97a76a7380f6a0e11a43012d50efeb0ec288))
+
+
+
 ## [0.0.4](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.3...v0.0.4) (2023-03-28)
 
 
