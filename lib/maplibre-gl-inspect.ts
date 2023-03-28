@@ -138,7 +138,7 @@ class MaplibreInspect {
 
       //NOTE: This heavily depends on the internal API of Maplibre GL
       //so this breaks between Maplibre GL JS releases
-      if (e.sourceDataType !== 'visibility' && e.isSourceLoaded) {
+      if (e.isSourceLoaded) {
         Object.keys(map.style.sourceCaches).forEach((sourceId) => {
           const sourceCache = map.style.sourceCaches[`${sourceId}`] || {
             _source: {},
