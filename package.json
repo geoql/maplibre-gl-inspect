@@ -70,7 +70,7 @@
     "stylelint-prettier": "^3.0.0",
     "typescript": "^5.0.3",
     "vite": "^4.2.1",
-    "vite-plugin-dts": "^2.1.0"
+    "vite-plugin-dts": "^2.2.0"
   },
   "peerDependencies": {
     "maplibre-gl": "^2.4.0"
