@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.6",
-    "@commitlint/config-conventional": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.6",
     "@types/lodash.isequal": "^4.5.6",
     "@types/node": "^20.3.1",
     "@types/randomcolor": "^0.5.7",
