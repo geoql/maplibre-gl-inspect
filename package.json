@@ -61,7 +61,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "lodash.isequal": "^4.5.0",
-    "maplibre-gl": "^2.4.0",
+    "maplibre-gl": "^3.4.1",
     "prettier": "^2.8.8",
     "sass": "^1.69.3",
     "shipjs": "^0.26.3",
@@ -73,7 +73,7 @@
     "vite-plugin-dts": "^3.6.0"
   },
   "peerDependencies": {
-    "maplibre-gl": "^2.4.0"
+    "maplibre-gl": "^3.4.1"
   },
   "keywords": [
     "maplibre",
