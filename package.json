@@ -50,7 +50,7 @@
     "@types/lodash.isequal": "^4.5.7",
     "@types/node": "^20.8.9",
     "@types/randomcolor": "^0.5.8",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^5.62.0",
     "eslint": "^8.52.0",
     "eslint-config-prettier": "^9.0.0",
