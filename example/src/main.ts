@@ -15,7 +15,6 @@ map.addControl(new maplibregl.NavigationControl(), 'top-right');
 
 const inspect = new MaplibreInspect({
   showInspectMapPopup: true,
-  showInspectMapPopupOnHover: true,
   showInspectButton: true,
   theme: 'system',
 });
