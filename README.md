@@ -134,6 +134,52 @@ map.addControl(
 );
 ```
 
+### Theming
+
+Supports `light`, `dark`, and `system` (auto-detect) themes. By default, the theme is `system` which follows `prefers-color-scheme`.
+
+```ts
+// Use dark theme
+const inspect = new MaplibreInspect({
+  theme: 'dark',
+});
+map.addControl(inspect);
+
+// Switch theme at runtime
+inspect.setTheme('light');
+```
+
+### Custom Theme Colors
+
+```ts
+import type { ThemeColors } from 'maplibre-gl-inspect';
+
+const inspect = new MaplibreInspect({
+  theme: 'system',
+  lightColors: {
+    popupText: '#1a1a1a',
+    popupBorder: '#e0e0e0',
+    buttonIcon: '#1a1a1a',
+    inspectBackground: '#fafafa',
+  },
+  darkColors: {
+    popupText: '#f0f0f0',
+    popupBorder: '#555555',
+    buttonIcon: '#f0f0f0',
+    inspectBackground: '#111827',
+  },
+});
+```
+
+The following CSS custom properties are available for manual override:
+
+| Variable                 | Description                   |
+| ------------------------ | ----------------------------- |
+| `--inspect-popup-text`   | Popup text color              |
+| `--inspect-popup-border` | Popup feature border color    |
+| `--inspect-button-icon`  | Toggle button icon color      |
+| `--inspect-background`   | Inspect mode background color |
+
 ## Develop
 
 ```bash
