@@ -22,10 +22,14 @@ export type Theme = 'light' | 'dark' | 'system';
 export interface ThemeColors {
   /** Popup text color */
   popupText: string;
+  /** Popup background color */
+  popupBg: string;
   /** Popup feature border color */
   popupBorder: string;
   /** Button icon fill color */
   buttonIcon: string;
+  /** Control group background color */
+  ctrlBg: string;
   /** Inspect mode background color */
   inspectBackground: string;
 }
