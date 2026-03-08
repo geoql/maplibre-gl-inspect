@@ -17,6 +17,19 @@ export type RenderPopupFeature = {
   properties: RenderPopupProperty;
 };
 
+export type Theme = 'light' | 'dark' | 'system';
+
+export interface ThemeColors {
+  /** Popup text color */
+  popupText: string;
+  /** Popup feature border color */
+  popupBorder: string;
+  /** Button icon fill color */
+  buttonIcon: string;
+  /** Inspect mode background color */
+  inspectBackground: string;
+}
+
 export type Options = {
   showInspectMap: boolean;
   showInspectButton: boolean;
@@ -39,4 +52,7 @@ export type Options = {
   queryParameters: Record<string, string>;
   sources: { [_: string]: SourceSpecification | string[] };
   toggleCallback(showInspectMap?: boolean): void;
+  theme?: Theme;
+  lightColors?: Partial<ThemeColors>;
+  darkColors?: Partial<ThemeColors>;
 };
