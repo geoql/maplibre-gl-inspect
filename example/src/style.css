@@ -1,0 +1,24 @@
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+:root {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color-scheme: light;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+}
+
+canvas {
+  outline: none !important;
+}
+
+#map {
+  width: 100vw;
+  height: 100vh;
+}
