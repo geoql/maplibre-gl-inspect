@@ -6,7 +6,7 @@
     system-ui,
     -apple-system,
     sans-serif;
-  color-scheme: light;
+  color-scheme: light dark;
   overflow: hidden;
 }
 
@@ -21,4 +21,27 @@ canvas {
 #map {
   width: 100vw;
   height: 100vh;
+}
+
+#controls {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+#controls label {
+  margin-right: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  #controls {
+    background: rgba(31, 41, 55, 0.9);
+    color: #e5e7eb;
+  }
 }
