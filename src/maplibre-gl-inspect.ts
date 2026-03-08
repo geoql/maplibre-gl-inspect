@@ -7,13 +7,14 @@ import type {
   MapSourceDataEvent,
   StyleSpecification,
 } from 'maplibre-gl';
-import type { Options, RenderPopupFeature } from './types';
+import type { Options, RenderPopupFeature, Theme, ThemeColors } from './types';
 import './maplibre-gl-inspect.css';
 
 import { generateInspectStyle, generateColoredLayers } from './style-gen';
 import { InspectButton } from './inspect-button';
 import { renderPopup } from './render-popup';
 import { brightColor } from './colors';
+import { DEFAULT_LIGHT_COLORS, DEFAULT_DARK_COLORS } from './theme-colors';
 
 /** Internal MapLibre GL types for accessing private style APIs */
 interface SourceInternal {
@@ -56,8 +57,12 @@ class MaplibreInspect {
   public options: Options;
   public sources: Options['sources'];
   public assignLayerColor: Options['assignLayerColor'];
+  private _currentTheme: Theme;
+  private readonly _mediaQuery: MediaQueryList | null;
+  private readonly _lightColors: ThemeColors;
+  private readonly _darkColors: ThemeColors;
 
-  constructor(options: Options) {
+  constructor(options?: Partial<Options>) {
     if (!(this instanceof MaplibreInspect)) {
       throw new Error(
         'MaplibreInspect needs to be called with the new keyword',
@@ -70,7 +75,7 @@ class MaplibreInspect {
         closeButton: false,
         closeOnClick: false,
       });
-    } else if (!options.popup) {
+    } else if (!options?.popup) {
       console.error(
         'Maplibre GL JS can not be found. Make sure to include it or pass an initialized MaplibreGL Popup to MaplibreInspect if you are using moduleis.',
       );
@@ -109,6 +114,26 @@ class MaplibreInspect {
     this._onMouseMove = this._onMouseMove.bind(this);
     this._onRightClick = this._onRightClick.bind(this);
     this._onStyleChange = this._onStyleChange.bind(this);
+
+    this._currentTheme = this.options.theme ?? 'system';
+    this._lightColors = {
+      ...DEFAULT_LIGHT_COLORS,
+      ...this.options.lightColors,
+    };
+    this._darkColors = { ...DEFAULT_DARK_COLORS, ...this.options.darkColors };
+
+    if (
+      this._currentTheme === 'system' &&
+      typeof window !== 'undefined' &&
+      window.matchMedia
+    ) {
+      this._mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      this._mediaQuery.addEventListener('change', this._onSystemThemeChange);
+    } else {
+      this._mediaQuery = null;
+    }
+
+    this._applyTheme();
 
     this._originalStyle = null;
     this._toggle = new InspectButton({
@@ -261,6 +286,71 @@ class MaplibreInspect {
     this.render();
   }
 
+  get theme(): Theme {
+    return this._currentTheme;
+  }
+
+  public setTheme(theme: Theme): void {
+    const previousTheme = this._currentTheme;
+    this._currentTheme = theme;
+
+    if (previousTheme === 'system' && theme !== 'system' && this._mediaQuery) {
+      this._mediaQuery.removeEventListener('change', this._onSystemThemeChange);
+    } else if (
+      previousTheme !== 'system' &&
+      theme === 'system' &&
+      this._mediaQuery
+    ) {
+      this._mediaQuery.addEventListener('change', this._onSystemThemeChange);
+    }
+
+    this._applyTheme();
+  }
+
+  private _onSystemThemeChange = (): void => {
+    if (this._currentTheme === 'system') {
+      this._applyTheme();
+    }
+  };
+
+  private _getResolvedTheme(): 'light' | 'dark' {
+    if (this._currentTheme === 'system') {
+      if (this._mediaQuery) {
+        return this._mediaQuery.matches ? 'dark' : 'light';
+      }
+      return 'light';
+    }
+    return this._currentTheme;
+  }
+
+  private _applyTheme(): void {
+    const resolved = this._getResolvedTheme();
+    const colors = resolved === 'dark' ? this._darkColors : this._lightColors;
+
+    document.documentElement.style.setProperty(
+      '--inspect-popup-text',
+      colors.popupText,
+    );
+    document.documentElement.style.setProperty(
+      '--inspect-popup-border',
+      colors.popupBorder,
+    );
+    document.documentElement.style.setProperty(
+      '--inspect-button-icon',
+      colors.buttonIcon,
+    );
+    document.documentElement.style.setProperty(
+      '--inspect-background',
+      colors.inspectBackground,
+    );
+
+    if (this._currentTheme === 'system') {
+      document.documentElement.removeAttribute('data-inspect-theme');
+    } else {
+      document.documentElement.setAttribute('data-inspect-theme', resolved);
+    }
+  }
+
   public render(): void {
     if (this._showInspectMap) {
       if (this.options.useInspectStyle) {
@@ -306,6 +396,12 @@ class MaplibreInspect {
     this._map?.off('mousemove', this._onMouseMove);
     this._map?.off('click', this._onMouseMove);
     this._map?.off('contextmenu', this._onRightClick);
+
+    if (this._mediaQuery) {
+      this._mediaQuery.removeEventListener('change', this._onSystemThemeChange);
+    }
+
+    document.documentElement.removeAttribute('data-inspect-theme');
 
     const elem = this._toggle.elem;
     elem.parentNode?.removeChild(elem);
