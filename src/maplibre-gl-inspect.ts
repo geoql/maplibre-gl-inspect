@@ -30,13 +30,10 @@ interface StyleInternal {
 }
 
 const isInspectStyle = (style: StyleSpecification): boolean => {
-  if (
+  return !!(
     style.metadata &&
-    'maplibregl-inspect:inspect' in Object.keys(style.metadata)
-  ) {
-    return true;
-  }
-  return false;
+    'maplibregl-inspect:inspect' in (style.metadata as Record<string, unknown>)
+  );
 };
 
 const markInspectStyle = (style: StyleSpecification): StyleSpecification => {
