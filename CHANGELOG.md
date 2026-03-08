@@ -7,6 +7,40 @@
 
 
 
+## [0.0.8](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.7...v0.0.8) (2026-03-08)
+
+
+### Features
+
+* add default light and dark theme color constants ([c81e919](https://github.com/geoql/maplibre-gl-inspect/commit/c81e919b40f561a38b013fd23de8358d744d5aef))
+* add theme support with setTheme, applyTheme and system detection ([60a9b92](https://github.com/geoql/maplibre-gl-inspect/commit/60a9b92c882bf8becd780bf468c5f4d0e4cf0526))
+* add theme switcher to example ([b6f5510](https://github.com/geoql/maplibre-gl-inspect/commit/b6f55100764de5595cb5baceacd4c9d5507740fb))
+* add Theme, ThemeColors types and theme options to Options ([0dfd233](https://github.com/geoql/maplibre-gl-inspect/commit/0dfd233d3425d6e02a8e1758b77e36a25d86792a))
+* convert CSS to custom properties with light/dark theme support ([06ef418](https://github.com/geoql/maplibre-gl-inspect/commit/06ef41822f42cf1aebe5cc0a5d6556afa58b6b04))
+* **core:** apply popupBg/ctrlBg CSS vars, default to click-only inspect popup ([970bd9a](https://github.com/geoql/maplibre-gl-inspect/commit/970bd9a8f191da0621e87f780fde5d9c55a270bb))
+* **css:** themed popup with thin scrollbar, tip arrows, and icon fixes ([671e208](https://github.com/geoql/maplibre-gl-inspect/commit/671e20873f008696e41f2422f848e4bd883bd7c1))
+* export theme types and default color constants ([aac1bbd](https://github.com/geoql/maplibre-gl-inspect/commit/aac1bbd61f925f98f3244a6f2d95e1344facfee5))
+* **types:** add popupBg and ctrlBg to ThemeColors interface ([5481d52](https://github.com/geoql/maplibre-gl-inspect/commit/5481d52bef8f7f6a92ea3abc7a6aef54cdda3058))
+
+
+### Bug Fixes
+
+* correct isInspectStyle to check metadata object instead of keys array ([1aa4ea9](https://github.com/geoql/maplibre-gl-inspect/commit/1aa4ea9b2507cde17b1fe13846d5bf4b7b72fe6e))
+* **css:** cover all 8 popup anchor positions for tip arrow theming ([8e8b731](https://github.com/geoql/maplibre-gl-inspect/commit/8e8b731df136e7e9cfa1194382b4d4233a18b4ef))
+* **css:** preserve icon color on hover, beat MapLibre specificity ([85abe7d](https://github.com/geoql/maplibre-gl-inspect/commit/85abe7d5f16babca06b01cd962c0331c6b32d00b))
+* **example:** use default click-only popup behavior ([e3b0d1e](https://github.com/geoql/maplibre-gl-inspect/commit/e3b0d1e02e5b2812264ef2740e7e3b68787f8ed6))
+
+
+### Documentation
+
+* add theming and CSS custom properties documentation ([8fdd7d2](https://github.com/geoql/maplibre-gl-inspect/commit/8fdd7d27a7cb7635dcba9ce39346dea751f1ec2b))
+* rewrite README with modern usage and JSR badge ([6809e48](https://github.com/geoql/maplibre-gl-inspect/commit/6809e4835e19f1bb5a5735485b638d0728af7a74))
+
+
+### Miscellaneous
+
+* fix example/package.json formatting ([57c4313](https://github.com/geoql/maplibre-gl-inspect/commit/57c4313f9919cd687f9e507d4faaea32e45e691a))
+
 ## [0.0.7](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.6...v0.0.7) (2026-03-08)
 
 
