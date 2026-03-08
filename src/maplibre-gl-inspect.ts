@@ -87,7 +87,7 @@ class MaplibreInspect {
       showInspectMapPopup: true,
       showMapPopup: false,
       showMapPopupOnHover: true,
-      showInspectMapPopupOnHover: true,
+      showInspectMapPopupOnHover: false,
       blockHoverPopupOnClick: false,
       backgroundColor: '#fff',
       assignLayerColor: brightColor,
@@ -332,12 +332,20 @@ class MaplibreInspect {
       colors.popupText,
     );
     document.documentElement.style.setProperty(
+      '--inspect-popup-bg',
+      colors.popupBg,
+    );
+    document.documentElement.style.setProperty(
       '--inspect-popup-border',
       colors.popupBorder,
     );
     document.documentElement.style.setProperty(
       '--inspect-button-icon',
       colors.buttonIcon,
+    );
+    document.documentElement.style.setProperty(
+      '--inspect-ctrl-bg',
+      colors.ctrlBg,
     );
     document.documentElement.style.setProperty(
       '--inspect-background',
