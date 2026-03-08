@@ -152,6 +152,12 @@
   mask-position: center;
 }
 
+/* Hover state — must beat .maplibregl-ctrl button:not(:disabled):hover (0,3,1) */
+.maplibregl-ctrl-group button.maplibregl-ctrl-inspect:not(:disabled):hover,
+.maplibregl-ctrl-group button.maplibregl-ctrl-map:not(:disabled):hover {
+  background-color: var(--inspect-button-icon);
+}
+
 .maplibregl-ctrl-group button.maplibregl-ctrl-map {
   background-color: var(--inspect-button-icon);
   background-image: none;
