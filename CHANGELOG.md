@@ -7,6 +7,23 @@
 
 
 
+## [0.0.8](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.7...v0.0.8) (2026-03-08)
+
+
+### Bug Fixes
+
+* correct isInspectStyle to check metadata object instead of keys array ([1aa4ea9](https://github.com/geoql/maplibre-gl-inspect/commit/1aa4ea9b2507cde17b1fe13846d5bf4b7b72fe6e))
+
+
+### Documentation
+
+* rewrite README with modern usage and JSR badge ([6809e48](https://github.com/geoql/maplibre-gl-inspect/commit/6809e4835e19f1bb5a5735485b638d0728af7a74))
+
+
+### Miscellaneous
+
+* fix example/package.json formatting ([57c4313](https://github.com/geoql/maplibre-gl-inspect/commit/57c4313f9919cd687f9e507d4faaea32e45e691a))
+
 ## [0.0.7](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.6...v0.0.7) (2026-03-08)
 
 
