@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "maplibre-gl-inspect": "file:..",
-    "maplibre-gl": "^5.19.0"
+    "maplibre-gl": "^5.19.0",
+    "maplibre-gl-inspect": "file:.."
   },
   "devDependencies": {
     "@types/node": "^25.3.5",
