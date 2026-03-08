@@ -7,7 +7,7 @@ import type {
   LineLayerSpecification,
   BackgroundLayerSpecification,
 } from 'maplibre-gl';
-import type { Options } from '../types/maplibre-gl-inspect';
+import type { Options } from './types';
 
 const circleLayer = (
   color: string,
@@ -150,7 +150,7 @@ const generateInspectStyle = (
   };
   Object.keys(originalMapStyle.sources).forEach((sourceId) => {
     const source = originalMapStyle.sources[`${sourceId}`];
-    if (source.type === 'vector' || source.type === 'geojson') {
+    if (source && (source.type === 'vector' || source.type === 'geojson')) {
       sources[`${sourceId}`] = source;
     }
   });

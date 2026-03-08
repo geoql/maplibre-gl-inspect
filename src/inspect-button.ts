@@ -6,7 +6,6 @@ class InspectButton {
     options = Object.assign(
       {
         show: true,
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
         onToggle: () => {},
       },
       options,

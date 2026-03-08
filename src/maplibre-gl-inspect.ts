@@ -7,13 +7,25 @@ import type {
   MapSourceDataEvent,
   StyleSpecification,
 } from 'maplibre-gl';
-import type { Options, RenderPopupFeature } from '../types/maplibre-gl-inspect';
+import type { Options, RenderPopupFeature } from './types';
 import './maplibre-gl-inspect.css';
-import isEqual from 'lodash.isequal';
+
 import { generateInspectStyle, generateColoredLayers } from './style-gen';
 import { InspectButton } from './inspect-button';
 import { renderPopup } from './render-popup';
 import { brightColor } from './colors';
+
+/** Internal MapLibre GL types for accessing private source cache APIs */
+interface SourceCacheInternal {
+  _source: {
+    vectorLayerIds?: string[];
+    type?: string;
+  };
+}
+
+interface StyleInternal {
+  sourceCaches: Record<string, SourceCacheInternal>;
+}
 
 const isInspectStyle = (style: StyleSpecification): boolean => {
   if (
@@ -36,8 +48,6 @@ const markInspectStyle = (style: StyleSpecification): StyleSpecification => {
 };
 
 class MaplibreInspect {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   private _map: Map | undefined;
   private _popup: Popup | null;
   private _popupBlocked = false;
@@ -67,30 +77,28 @@ class MaplibreInspect {
       );
     }
 
-    this.options = {
-      ...{
-        showInspectMap: false,
-        showInspectButton: true,
-        showInspectMapPopup: true,
-        showMapPopup: false,
-        showMapPopupOnHover: true,
-        showInspectMapPopupOnHover: true,
-        blockHoverPopupOnClick: false,
-        backgroundColor: '#fff',
-        assignLayerColor: brightColor,
-        buildInspectStyle: generateInspectStyle,
-        renderPopup,
-        popup,
-        selectThreshold: 5,
-        useInspectStyle: true,
-        queryParameters: {},
-        sources: {},
-        toggleCallback(showInspect: boolean) {
-          console.log('Inspector status?: ', showInspect);
-        },
+    const defaults: Options = {
+      showInspectMap: false,
+      showInspectButton: true,
+      showInspectMapPopup: true,
+      showMapPopup: false,
+      showMapPopupOnHover: true,
+      showInspectMapPopupOnHover: true,
+      blockHoverPopupOnClick: false,
+      backgroundColor: '#fff',
+      assignLayerColor: brightColor,
+      buildInspectStyle: generateInspectStyle,
+      renderPopup,
+      popup,
+      selectThreshold: 5,
+      useInspectStyle: true,
+      queryParameters: {},
+      sources: {},
+      toggleCallback(showInspect: boolean) {
+        console.log('Inspector status?: ', showInspect);
       },
-      ...options,
     };
+    this.options = Object.assign(defaults, options);
 
     this.sources = this.options.sources;
     this.assignLayerColor = this.options.assignLayerColor;
@@ -139,17 +147,20 @@ class MaplibreInspect {
       //NOTE: This heavily depends on the internal API of Maplibre GL
       //so this breaks between Maplibre GL JS releases
       if (e.isSourceLoaded) {
-        Object.keys(map.style.sourceCaches).forEach((sourceId) => {
-          const sourceCache = map.style.sourceCaches[`${sourceId}`] || {
+        const styleCaches = (map.style as unknown as StyleInternal)
+          .sourceCaches;
+        Object.keys(styleCaches).forEach((sourceId) => {
+          const sourceCache: SourceCacheInternal = styleCaches[sourceId] ?? {
             _source: {},
           };
           const layerIds = sourceCache._source.vectorLayerIds;
           if (layerIds) {
-            sources[`${sourceId}`] = layerIds;
+            sources[sourceId] = layerIds;
           } else if (sourceCache._source.type === 'geojson') {
-            sources[`${sourceId}`] = [];
+            sources[sourceId] = [];
           }
         });
+
         Object.keys(sources).forEach((sourceId) => {
           if (mapStyleSourcesNames.indexOf(sourceId) === -1) {
             delete sources[`${sourceId}`];
@@ -157,7 +168,7 @@ class MaplibreInspect {
         });
 
         if (
-          !isEqual(previousSources, sources) &&
+          JSON.stringify(previousSources) !== JSON.stringify(sources) &&
           Object.keys(sources).length > 0
         ) {
           this.render();

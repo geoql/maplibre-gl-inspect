@@ -1,7 +1,4 @@
-import {
-  RenderPopupFeature,
-  RenderPopupProperty,
-} from '../types/maplibre-gl-inspect';
+import type { RenderPopupFeature, RenderPopupProperty } from './types';
 
 const displayValue = (
   value: RenderPopupProperty[keyof RenderPopupProperty],

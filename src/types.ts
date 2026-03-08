@@ -33,7 +33,7 @@ export type Options = {
     opts: any,
   ): StyleSpecification;
   renderPopup(features: RenderPopupFeature[]): string;
-  popup: Popup;
+  popup: Popup | null;
   selectThreshold: number;
   useInspectStyle: boolean;
   queryParameters: Record<string, string>;
