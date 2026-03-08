@@ -15,16 +15,18 @@ import { InspectButton } from './inspect-button';
 import { renderPopup } from './render-popup';
 import { brightColor } from './colors';
 
-/** Internal MapLibre GL types for accessing private source cache APIs */
-interface SourceCacheInternal {
-  _source: {
-    vectorLayerIds?: string[];
-    type?: string;
-  };
+/** Internal MapLibre GL types for accessing private style APIs */
+interface SourceInternal {
+  vectorLayerIds?: string[];
+  type?: string;
+}
+
+interface TileManagerInternal {
+  getSource(): SourceInternal;
 }
 
 interface StyleInternal {
-  sourceCaches: Record<string, SourceCacheInternal>;
+  tileManagers: Record<string, TileManagerInternal>;
 }
 
 const isInspectStyle = (style: StyleSpecification): boolean => {
@@ -147,19 +149,15 @@ class MaplibreInspect {
       //NOTE: This heavily depends on the internal API of Maplibre GL
       //so this breaks between Maplibre GL JS releases
       if (e.isSourceLoaded) {
-        const styleCaches = (map.style as unknown as StyleInternal)
-          .sourceCaches;
-        Object.keys(styleCaches).forEach((sourceId) => {
-          const sourceCache: SourceCacheInternal = styleCaches[sourceId] ?? {
-            _source: {},
-          };
-          const layerIds = sourceCache._source.vectorLayerIds;
-          if (layerIds) {
-            sources[sourceId] = layerIds;
-          } else if (sourceCache._source.type === 'geojson') {
+        const { tileManagers } = map.style as unknown as StyleInternal;
+        for (const sourceId of Object.keys(tileManagers)) {
+          const source = tileManagers[sourceId]?.getSource();
+          if (source?.vectorLayerIds) {
+            sources[sourceId] = source.vectorLayerIds;
+          } else if (source?.type === 'geojson') {
             sources[sourceId] = [];
           }
-        });
+        }
 
         Object.keys(sources).forEach((sourceId) => {
           if (mapStyleSourcesNames.indexOf(sourceId) === -1) {
