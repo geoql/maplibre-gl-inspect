@@ -77,7 +77,7 @@ jobs:
       - name: Publish to JSR
         run: |
           VERSION="${{ steps.version.outputs.version }}"
-          if curl -fsS "https://jsr.io/@geoql/maplibre-gl-inspect/$VERSION/package.json" >/dev/null 2>&1; then
+          if curl -fsS "https://jsr.io/@geoql/maplibre-gl-inspect/meta.json" | grep -q "\"$VERSION\""; then
             echo "@geoql/maplibre-gl-inspect@$VERSION already on JSR, skipping"
           else
             pnpm dlx jsr publish --allow-dirty --allow-slow-types
