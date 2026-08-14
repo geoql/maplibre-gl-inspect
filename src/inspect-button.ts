@@ -1,19 +1,18 @@
+interface InspectButtonOptions {
+  show?: boolean;
+  onToggle?: () => void;
+}
+
 class InspectButton {
   private _btn: HTMLButtonElement;
   public elem: HTMLDivElement;
 
-  constructor(options: any) {
-    options = Object.assign(
-      {
-        show: true,
-        onToggle: () => {},
-      },
-      options,
-    );
+  constructor(options: InspectButtonOptions = {}) {
+    const { show = true, onToggle = () => {} } = options;
 
     this._btn = this.button();
-    this._btn.onclick = options.onToggle;
-    this.elem = this.container(this._btn, options.show);
+    this._btn.onclick = onToggle;
+    this.elem = this.container(this._btn, show);
   }
 
   private container(child: Node, show: boolean): HTMLDivElement {

@@ -9,11 +9,7 @@ import type {
 } from 'maplibre-gl';
 import type { Options } from './types';
 
-const circleLayer = (
-  color: string,
-  source: string,
-  vectorLayer?: string | undefined,
-) => {
+const circleLayer = (color: string, source: string, vectorLayer?: string) => {
   const layer: CircleLayerSpecification = {
     id: [source, vectorLayer, 'circle'].join('_'),
     source,
@@ -33,7 +29,7 @@ const polygonLayer = (
   color: string,
   outlineColor: string,
   source: string,
-  vectorLayer?: string | undefined,
+  vectorLayer?: string,
 ) => {
   const layer: FillLayerSpecification = {
     id: [source, vectorLayer, 'polygon'].join('_'),
@@ -51,11 +47,7 @@ const polygonLayer = (
   }
   return layer;
 };
-const lineLayer = (
-  color: string,
-  source: string,
-  vectorLayer?: string | undefined,
-) => {
+const lineLayer = (color: string, source: string, vectorLayer?: string) => {
   const layer: LineLayerSpecification = {
     id: [source, vectorLayer, 'line'].join('_'),
     source,
@@ -128,20 +120,15 @@ const generateColoredLayers = (
 const generateInspectStyle = (
   originalMapStyle: StyleSpecification,
   coloredLayers: LayerSpecification[],
-  opts: any,
+  opts: { backgroundColor?: string } = {},
 ): StyleSpecification => {
-  opts = Object.assign(
-    {
-      backgroundColor: '#fff',
-    },
-    opts,
-  );
+  const backgroundColor = opts.backgroundColor ?? '#fff';
 
   const backgroundLayer: BackgroundLayerSpecification = {
     id: 'background',
     type: 'background',
     paint: {
-      'background-color': opts.backgroundColor,
+      'background-color': backgroundColor,
     },
   };
 

@@ -43,11 +43,11 @@ export type Options = {
   showInspectMapPopupOnHover: boolean;
   blockHoverPopupOnClick: boolean;
   backgroundColor: string;
-  assignLayerColor(layerId: string, alpha?: number): string;
+  assignLayerColor: (layerId: string, alpha?: number) => string;
   buildInspectStyle(
     originalMapStyle: StyleSpecification,
     coloredLayers: LayerSpecification[],
-    opts: any,
+    opts: { backgroundColor?: string },
   ): StyleSpecification;
   renderPopup(features: RenderPopupFeature[]): string;
   popup: Popup | null;

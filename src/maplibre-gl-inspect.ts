@@ -1,4 +1,4 @@
-import maplibregl from 'maplibre-gl';
+import * as maplibregl from 'maplibre-gl';
 import type {
   Map,
   Popup,
@@ -98,22 +98,15 @@ class MaplibreInspect {
       useInspectStyle: true,
       queryParameters: {},
       sources: {},
-      toggleCallback(showInspect: boolean) {
-        console.log('Inspector status?: ', showInspect);
-      },
+      toggleCallback() {},
     };
     this.options = Object.assign(defaults, options);
 
     this.sources = this.options.sources;
     this.assignLayerColor = this.options.assignLayerColor;
-    this.toggleInspector = this.toggleInspector.bind(this);
     this._popup = this.options.popup;
     this._popupBlocked = false;
     this._showInspectMap = this.options.showInspectMap;
-    this._onSourceChange = this._onSourceChange.bind(this);
-    this._onMouseMove = this._onMouseMove.bind(this);
-    this._onRightClick = this._onRightClick.bind(this);
-    this._onStyleChange = this._onStyleChange.bind(this);
 
     this._currentTheme = this.options.theme ?? 'system';
     this._lightColors = {
@@ -138,7 +131,7 @@ class MaplibreInspect {
     this._originalStyle = null;
     this._toggle = new InspectButton({
       show: this.options.showInspectButton,
-      onToggle: this.toggleInspector.bind(this),
+      onToggle: this.toggleInspector,
     });
   }
 
@@ -160,7 +153,7 @@ class MaplibreInspect {
     return style as StyleSpecification;
   }
 
-  private _onSourceChange(e: MapSourceDataEvent) {
+  private _onSourceChange = (e: MapSourceDataEvent): void => {
     const sources = this.sources;
     if (this._map) {
       const map = this._map;
@@ -195,16 +188,16 @@ class MaplibreInspect {
         }
       }
     }
-  }
+  };
 
-  private _onStyleChange() {
+  private _onStyleChange = (): void => {
     const style = this._map?.getStyle();
     if (style && !isInspectStyle(style)) {
       this._originalStyle = style;
     }
-  }
+  };
 
-  private _onRightClick() {
+  private _onRightClick = (): void => {
     if (
       !this.options.showMapPopupOnHover &&
       !this.options.showInspectMapPopupOnHover &&
@@ -212,9 +205,9 @@ class MaplibreInspect {
     ) {
       if (this._popup) this._popup.remove();
     }
-  }
+  };
 
-  private _onMouseMove(e: MouseEvent | MapMouseEvent) {
+  private _onMouseMove = (e: MouseEvent | MapMouseEvent): void => {
     if (this._showInspectMap) {
       if (!this.options.showInspectMapPopup) return;
       if (e.type === 'mousemove' && !this.options.showInspectMapPopupOnHover)
@@ -278,13 +271,13 @@ class MaplibreInspect {
         this._popup?.remove();
       }
     }
-  }
+  };
 
-  public toggleInspector(): void {
+  public toggleInspector = (): void => {
     this._showInspectMap = !this._showInspectMap;
     this.options.toggleCallback(this._showInspectMap);
     this.render();
-  }
+  };
 
   get theme(): Theme {
     return this._currentTheme;

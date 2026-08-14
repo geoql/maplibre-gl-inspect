@@ -5,13 +5,8 @@ const displayValue = (
 ) => {
   if (typeof value === 'undefined' || value === null) return value;
   if (value instanceof Date) return value.toLocaleString();
-  if (
-    typeof value === 'object' ||
-    typeof value === 'number' ||
-    typeof value === 'string'
-  )
-    return value.toString();
-  return value;
+  if (typeof value === 'object') return JSON.stringify(value);
+  return value.toString();
 };
 
 const renderProperty = <
