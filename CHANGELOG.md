@@ -7,6 +7,20 @@
 
 
 
+## [0.0.9](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.8...v0.0.9) (2026-08-14)
+
+
+### Bug Fixes
+
+* **core:** support maplibre-gl v6 (namespace import) ([e864a5e](https://github.com/geoql/maplibre-gl-inspect/commit/e864a5efdcebc77d2a4892ae7d302107a51eebd0)), closes [#507](https://github.com/geoql/maplibre-gl-inspect/issues/507)
+* **example:** typecheck against library source, not built dist ([ad3e457](https://github.com/geoql/maplibre-gl-inspect/commit/ad3e45759a672de7480360035201108a6d1da8aa))
+* **example:** use namespace import for maplibre-gl v6 ([856629a](https://github.com/geoql/maplibre-gl-inspect/commit/856629a6681b7118d753b02a5aaee910954f82f7))
+
+
+### Code Refactoring
+
+* **core:** centralize InspectButtonOptions in types.ts ([908e678](https://github.com/geoql/maplibre-gl-inspect/commit/908e67814ea9588b22f6f2f4a878ccc692a6c340))
+
 ## [0.0.8](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.7...v0.0.8) (2026-03-08)
 
 
