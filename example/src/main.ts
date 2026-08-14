@@ -1,4 +1,4 @@
-import maplibregl from 'maplibre-gl';
+import * as maplibregl from 'maplibre-gl';
 import { MaplibreInspect } from 'maplibre-gl-inspect';
 import type { Theme } from 'maplibre-gl-inspect';
 import 'maplibre-gl-inspect/dist/style.css';
