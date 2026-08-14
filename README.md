@@ -19,14 +19,14 @@ Add an inspect control to [maplibre-gl-js](https://github.com/maplibre/maplibre-
 # npm
 npm install maplibre-gl-inspect maplibre-gl
 
-# bun
-bun add maplibre-gl-inspect maplibre-gl
+# pnpm
+pnpm add maplibre-gl-inspect maplibre-gl
 ```
 
 ## Usage
 
 ```ts
-import maplibregl from 'maplibre-gl';
+import * as maplibregl from 'maplibre-gl';
 import { MaplibreInspect } from 'maplibre-gl-inspect';
 import 'maplibre-gl-inspect/dist/style.css';
 
@@ -183,16 +183,15 @@ The following CSS custom properties are available for manual override:
 ## Develop
 
 ```bash
-bun install
-bun run build
+pnpm install
+pnpm run build
 ```
 
 Run the example locally:
 
 ```bash
 cd example
-bun install
-bun run dev
+pnpm dev
 ```
 
 ## Credits
