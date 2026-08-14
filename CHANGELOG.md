@@ -7,6 +7,14 @@
 
 
 
+## [0.0.10](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.9...v0.0.10) (2026-08-14)
+
+
+### Miscellaneous
+
+* **release:** check jsr.io meta.json for published versions ([13e3858](https://github.com/geoql/maplibre-gl-inspect/commit/13e385801621bd2ca8e58d74376072676e691067))
+* **release:** fix jsr exports path, idempotent publish steps ([c4cb5ce](https://github.com/geoql/maplibre-gl-inspect/commit/c4cb5ce012a16ae367b90ab3a0e49e2189d5ab37))
+
 ## [0.0.9](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.8...v0.0.9) (2026-08-14)
 
 
