@@ -1,7 +1,4 @@
-interface InspectButtonOptions {
-  show?: boolean;
-  onToggle?: () => void;
-}
+import type { InspectButtonOptions } from './types';
 
 class InspectButton {
   private _btn: HTMLButtonElement;

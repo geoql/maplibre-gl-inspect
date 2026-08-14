@@ -34,6 +34,11 @@ export interface ThemeColors {
   inspectBackground: string;
 }
 
+export interface InspectButtonOptions {
+  show?: boolean;
+  onToggle?: () => void;
+}
+
 export type Options = {
   showInspectMap: boolean;
   showInspectButton: boolean;
