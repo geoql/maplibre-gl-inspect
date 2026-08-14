@@ -60,8 +60,25 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Resolve version
+        id: version
+        run: |
+          VERSION="${{ needs.release-please.outputs.version || github.event.inputs.tag }}"
+          echo "version=${VERSION#v}" >> "$GITHUB_OUTPUT"
+
       - name: Publish to npm with provenance
-        run: npm publish --provenance --access public --ignore-scripts
+        run: |
+          if npm view maplibre-gl-inspect@${{ steps.version.outputs.version }} version >/dev/null 2>&1; then
+            echo "maplibre-gl-inspect@${{ steps.version.outputs.version }} already published, skipping"
+          else
+            npm publish --provenance --access public --ignore-scripts
+          fi
 
       - name: Publish to JSR
-        run: pnpm dlx jsr publish --allow-dirty --allow-slow-types
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          if curl -fsS "https://jsr.io/@geoql/maplibre-gl-inspect/$VERSION/package.json" >/dev/null 2>&1; then
+            echo "@geoql/maplibre-gl-inspect@$VERSION already on JSR, skipping"
+          else
+            pnpm dlx jsr publish --allow-dirty --allow-slow-types
+          fi

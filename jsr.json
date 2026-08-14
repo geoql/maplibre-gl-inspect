@@ -1,7 +1,7 @@
 {
   "name": "@geoql/maplibre-gl-inspect",
   "version": "0.0.9",
-  "exports": "./dist/index.mjs",
+  "exports": "./dist/index.js",
   "publish": {
     "include": [
       "dist",
