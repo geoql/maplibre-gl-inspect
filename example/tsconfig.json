@@ -16,7 +16,7 @@
     "noImplicitReturns": true,
     "skipLibCheck": true,
     "paths": {
-      "maplibre-gl-inspect": ["../dist"]
+      "maplibre-gl-inspect": ["../src/index.ts"]
     }
   },
   "include": ["src"]
