@@ -81,7 +81,7 @@
     "lint-staged": "^17.3.0",
     "maplibre-gl": "^6.3.0",
     "typescript": "^7.0.2",
-    "vite-plus": "^0.2.9"
+    "vite-plus": "^0.3.0"
   },
   "peerDependencies": {
     "maplibre-gl": ">=5.0.0"

@@ -16,6 +16,6 @@
     "@types/node": "^26.2.0",
     "typescript": "^7.0.2",
     "vite": "^8.2.1",
-    "vite-plus": "^0.2.9"
+    "vite-plus": "^0.3.0"
   }
 }
