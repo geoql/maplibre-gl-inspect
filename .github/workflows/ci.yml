@@ -46,7 +46,7 @@ jobs:
         run: pnpm run test
 
   build:
-    name: Build Library & Demo
+    name: Build Library
     runs-on: ubuntu-latest
     needs: check
     steps:
