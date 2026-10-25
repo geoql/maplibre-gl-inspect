@@ -137,3 +137,6 @@ dist
 
 .sisyphus
 tmp
+
+# Cloudflare Wrangler
+.wrangler

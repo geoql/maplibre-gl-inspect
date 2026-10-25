@@ -11,6 +11,8 @@ Add an inspect control to [maplibre-gl-js](https://github.com/maplibre/maplibre-
 
 **Requires [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js) >= 5.0.0**
 
+**Live demo: [maplibre-gl-inspect.geoql.in](https://maplibre-gl-inspect.geoql.in)**
+
 ![Maplibre GL Inspect Preview](https://cloud.githubusercontent.com/assets/1288339/21744637/11759412-d51a-11e6-9581-f26741fcd182.gif)
 
 ## Install
@@ -36,6 +38,14 @@ const map = new maplibregl.Map({
 });
 
 map.addControl(new MaplibreInspect());
+```
+
+With MapLibre GL JS 6 and a bundler, point MapLibre at its bundled worker once before you create the map ([MapLibre install guide](https://maplibre.org/maplibre-gl-js/docs/#installation)). For Vite:
+
+```ts
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+
+maplibregl.setWorkerUrl(workerUrl);
 ```
 
 ### Show Inspection Map by Default
@@ -187,11 +197,11 @@ pnpm install
 pnpm run build
 ```
 
-Run the example locally:
+Run the demo locally, or deploy it to the `maplibre-gl-inspect-demo` Cloudflare Worker:
 
 ```bash
-cd example
-pnpm dev
+pnpm run demo:dev
+pnpm run deploy
 ```
 
 ## Credits
