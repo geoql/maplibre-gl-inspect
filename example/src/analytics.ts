@@ -2,7 +2,7 @@
  * GA4 measurement ID. Empty until the property exists; while it is empty,
  * gtag is never loaded and GA4 events are skipped.
  */
-const GA4_MEASUREMENT_ID: string = '';
+const GA4_MEASUREMENT_ID: string = 'G-1LJPR5DMKE';
 
 type EventProps = Record<string, string | number | boolean>;
 
