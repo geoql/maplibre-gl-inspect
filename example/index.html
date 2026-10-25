@@ -2,20 +2,178 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MapLibre GL Inspect Example</title>
+    <title>
+      maplibre-gl-inspect: inspect every vector layer in MapLibre GL
+    </title>
+    <meta
+      name="description"
+      content="Live demo of maplibre-gl-inspect, a MapLibre GL JS control that recolours every vector tile layer and shows the properties of the features under the cursor."
+    />
+    <meta
+      name="theme-color"
+      content="#f6f7f9"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#16181d"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link rel="canonical" href="https://maplibre-gl-inspect.geoql.in/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content="maplibre-gl-inspect" />
+    <meta
+      property="og:description"
+      content="Inspect every vector tile layer and feature property on a MapLibre GL map."
+    />
+    <meta property="og:url" content="https://maplibre-gl-inspect.geoql.in/" />
+    <meta property="og:type" content="website" />
+    <script>
+      // Resolve the colour mode before first paint (no flash).
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem('color-mode');
+        } catch (e) {}
+        var pref = stored === 'light' || stored === 'dark' ? stored : 'system';
+        var dark =
+          pref === 'dark' ||
+          (pref === 'system' &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.documentElement.dataset.colorMode = pref;
+      })();
+    </script>
+    <script
+      async
+      src="https://analytics.geoql.in/js/pa-1NNlrN1FsAD7PSc5_N0Rr.js"
+    ></script>
+    <script>
+      window.plausible =
+        window.plausible ||
+        function () {
+          (plausible.q = plausible.q || []).push(arguments);
+        };
+      plausible.init =
+        plausible.init ||
+        function (i) {
+          plausible.o = i || {};
+        };
+      plausible.init();
+    </script>
+    <script>
+      window.op =
+        window.op ||
+        function () {
+          var args = Array.prototype.slice.call(arguments);
+          (window.op.q = window.op.q || []).push(args);
+        };
+      window.op('init', {
+        apiUrl: 'https://events.geoql.in/api',
+        clientId: '44519469-3b6e-4683-9754-b0fca9551b07',
+        trackScreenViews: true,
+        trackOutgoingLinks: true,
+        trackAttributes: true,
+      });
+    </script>
+    <script src="https://openpanel.dev/op1.js" defer async></script>
   </head>
   <body>
-    <div id="map"></div>
-    <div id="controls">
-      <label for="theme-switcher">Theme:</label>
-      <select id="theme-switcher">
-        <option value="system">System</option>
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-      </select>
-    </div>
+    <main class="stage">
+      <div id="map" aria-label="Interactive map of New York City"></div>
+
+      <section class="panel" aria-labelledby="panel-title">
+        <header class="panel-head">
+          <h1 id="panel-title" class="wordmark">
+            <span class="wordmark-light">maplibre-gl-</span
+            ><span class="wordmark-bold">inspect</span>
+          </h1>
+          <button
+            id="panel-toggle"
+            class="panel-toggle"
+            type="button"
+            aria-expanded="true"
+            aria-controls="panel-body"
+          >
+            <span class="sr-only">Hide details</span>
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+              <path
+                d="M4 10l4-4 4 4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </header>
+
+        <div id="panel-body" class="panel-body">
+          <p class="lede">
+            A MapLibre GL JS control that recolours every vector layer and shows
+            the properties of the features under your cursor.
+          </p>
+
+          <button
+            id="inspect-cta"
+            class="cta"
+            type="button"
+            aria-pressed="false"
+          >
+            <span class="cta-dot" aria-hidden="true"></span>
+            <span id="inspect-cta-label">Inspect this map</span>
+          </button>
+
+          <dl class="readout" aria-live="polite">
+            <div>
+              <dt>Sources</dt>
+              <dd id="stat-sources">—</dd>
+            </div>
+            <div>
+              <dt>Layers</dt>
+              <dd id="stat-layers">—</dd>
+            </div>
+            <div>
+              <dt>Mode</dt>
+              <dd id="stat-mode">Original</dd>
+            </div>
+          </dl>
+
+          <div class="install">
+            <code id="install-cmd">pnpm add maplibre-gl-inspect</code>
+            <button id="copy-install" class="copy" type="button">Copy</button>
+          </div>
+
+          <div class="foot">
+            <div class="modes" role="radiogroup" aria-label="Colour mode">
+              <button type="button" role="radio" data-mode="system">
+                System
+              </button>
+              <button type="button" role="radio" data-mode="light">
+                Light
+              </button>
+              <button type="button" role="radio" data-mode="dark">Dark</button>
+            </div>
+            <nav class="links" aria-label="Project links">
+              <a
+                href="https://github.com/geoql/maplibre-gl-inspect"
+                data-outbound="github"
+                rel="noopener"
+                >GitHub</a
+              >
+              <a
+                href="https://www.npmjs.com/package/maplibre-gl-inspect"
+                data-outbound="npm"
+                rel="noopener"
+                >npm</a
+              >
+            </nav>
+          </div>
+        </div>
+      </section>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

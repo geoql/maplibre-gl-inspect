@@ -1,47 +1,377 @@
 @import 'maplibre-gl/dist/maplibre-gl.css';
 
+/* Tokens ------------------------------------------------------------------
+ * Direction: Tech Utility (nxui / v-maplibre family). Geist + Geist Mono,
+ * cool neutrals, one teal accent reserved for the inspect state.
+ */
 :root {
-  font-family:
-    Inter,
-    system-ui,
-    -apple-system,
-    sans-serif;
-  color-scheme: light dark;
-  overflow: hidden;
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --surface: oklch(0.985 0.003 250 / 0.94);
+  --surface-sunken: oklch(0.955 0.005 250);
+  --ink: oklch(0.22 0.015 260);
+  --ink-muted: oklch(0.48 0.015 260);
+  --line: oklch(0.89 0.006 260);
+  --accent: oklch(0.56 0.11 190);
+  --accent-ink: oklch(0.985 0.003 250);
+  --focus: oklch(0.56 0.11 190 / 0.45);
+  --shadow:
+    0 1px 2px oklch(0.2 0.02 260 / 0.08), 0 8px 24px oklch(0.2 0.02 260 / 0.1);
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+
+  color-scheme: light;
+  font-family: var(--font-sans);
+  color: var(--ink);
 }
 
+:root.dark {
+  --surface: oklch(0.2 0.01 260 / 0.92);
+  --surface-sunken: oklch(0.16 0.01 260);
+  --ink: oklch(0.95 0.004 250);
+  --ink-muted: oklch(0.7 0.012 255);
+  --line: oklch(0.32 0.012 260);
+  --accent: oklch(0.74 0.11 190);
+  --accent-ink: oklch(0.18 0.02 220);
+  --focus: oklch(0.74 0.11 190 / 0.5);
+  --shadow: 0 1px 2px oklch(0 0 0 / 0.3), 0 10px 28px oklch(0 0 0 / 0.35);
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
 body {
   margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--surface-sunken);
 }
 
-canvas {
-  outline: none !important;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Stage -------------------------------------------------------------------- */
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
 }
 
 #map {
-  width: 100vw;
-  height: 100vh;
-}
-
-#controls {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 1;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 6px 10px;
+  inset: 0;
+}
+
+canvas:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
+}
+
+/* Panel -------------------------------------------------------------------- */
+
+.panel {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 2;
+  width: min(23rem, calc(100% - 4.5rem));
+  padding: var(--space-4) var(--space-4) var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.wordmark {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(1.25rem, 1rem + 1.2vw, 1.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.wordmark-light {
+  font-weight: 300;
+  color: var(--ink-muted);
+}
+
+.wordmark-bold {
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.panel-toggle {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: -2px -4px 0 0;
+  color: var(--ink-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.panel-toggle:hover {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.panel-toggle svg {
+  transition: transform 160ms ease-out;
+}
+
+.is-collapsed .panel-toggle svg {
+  transform: rotate(180deg);
+}
+
+.panel-body {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+.is-collapsed .panel-body > :not(.cta) {
+  display: none;
+}
+
+.lede {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+/* Primary action ------------------------------------------------------------ */
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  font: 600 0.875rem/1 var(--font-sans);
+  color: var(--ink);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    background-color 140ms ease-out,
+    color 140ms ease-out,
+    border-color 140ms ease-out;
+}
+
+.cta:hover {
+  border-color: var(--accent);
+}
+
+.cta-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cta[aria-pressed='true'] {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.cta[aria-pressed='true'] .cta-dot {
+  background: var(--accent-ink);
+}
+
+/* Readout ---------------------------------------------------------------- */
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.readout div {
+  padding: var(--space-2) 0;
+}
+
+.readout div + div {
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--line);
+}
+
+.readout dt {
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.readout dd {
+  margin: var(--space-1) 0 0;
+  font: 500 0.9375rem/1.2 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Install ------------------------------------------------------------------- */
+
+.install {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-sunken);
+}
+
+.install code {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-2) var(--space-3);
+  overflow-x: auto;
+  font: 400 0.8125rem/1.6 var(--font-mono);
+  white-space: nowrap;
+}
+
+.copy {
+  flex: none;
+  padding: 0 var(--space-3);
+  font: 500 0.75rem/1 var(--font-sans);
+  color: var(--ink-muted);
+  background: transparent;
+  border: 0;
+  border-left: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.copy:hover {
+  color: var(--ink);
+}
+
+/* Footer row ---------------------------------------------------------------- */
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.modes {
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-sunken);
+}
+
+.modes button {
+  min-height: 28px;
+  padding: 0 var(--space-2);
+  font: 500 0.75rem/1 var(--font-sans);
+  color: var(--ink-muted);
+  background: transparent;
+  border: 0;
   border-radius: 4px;
-  font-size: 13px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
 }
 
-#controls label {
-  margin-right: 4px;
+.modes button[aria-checked='true'] {
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--line);
 }
 
-@media (prefers-color-scheme: dark) {
-  #controls {
-    background: rgba(31, 41, 55, 0.9);
-    color: #e5e7eb;
+.links {
+  display: flex;
+  gap: var(--space-3);
+  font-size: 0.8125rem;
+}
+
+.links a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 3px;
+}
+
+.links a:hover {
+  text-decoration-color: var(--accent);
+}
+
+:is(button, a):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* MapLibre chrome follows the colour mode -------------------------------- */
+
+.dark .maplibregl-ctrl-group {
+  background: oklch(0.24 0.01 260);
+}
+
+.dark .maplibregl-ctrl-group button + button {
+  border-top-color: var(--line);
+}
+
+.dark .maplibregl-ctrl button .maplibregl-ctrl-icon {
+  filter: invert(1);
+}
+
+.dark .maplibregl-ctrl-attrib,
+.dark .maplibregl-ctrl-attrib.maplibregl-compact {
+  color: var(--ink-muted);
+  background: oklch(0.2 0.01 260 / 0.85);
+}
+
+.dark .maplibregl-ctrl-attrib a {
+  color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .panel {
+    padding: var(--space-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta,
+  .panel-toggle svg {
+    transition: none;
   }
 }

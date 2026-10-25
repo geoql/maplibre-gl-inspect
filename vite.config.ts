@@ -13,7 +13,13 @@ export default defineConfig({
   },
   lint: {
     plugins: ['typescript', 'import'],
-    ignorePatterns: ['dist', 'node_modules', 'coverage', '*.config.ts'],
+    ignorePatterns: [
+      'dist',
+      'node_modules',
+      'coverage',
+      '.wrangler',
+      '*.config.ts',
+    ],
     options: {
       typeAware: true,
       typeCheck: true,
@@ -45,6 +51,7 @@ export default defineConfig({
       'dist',
       'node_modules',
       'coverage',
+      '.wrangler',
       'pnpm-lock.yaml',
       '*.lock',
       'CHANGELOG.md',
