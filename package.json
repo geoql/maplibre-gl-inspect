@@ -12,7 +12,7 @@
     "maplibre-gl",
     "maplibre-gl-js"
   ],
-  "homepage": "https://github.com/geoql/maplibre-gl-inspect#readme",
+  "homepage": "https://maplibre-gl-inspect.geoql.in",
   "bugs": {
     "url": "https://github.com/geoql/maplibre-gl-inspect/issues"
   },
@@ -57,13 +57,16 @@
   "scripts": {
     "build": "vp pack",
     "check": "vp check",
-    "test": "echo 'test!'",
+    "test": "vp test run",
     "prepare": "is-ci || husky",
     "lint": "vp lint",
     "lint:fix": "vp lint --fix",
     "format": "vp fmt --check",
     "format:fix": "vp fmt --write",
     "typecheck": "vp check --no-fmt --no-lint",
+    "demo:dev": "pnpm run build && pnpm --filter maplibre-gl-inspect-example run dev",
+    "demo:build": "pnpm run build && pnpm --filter maplibre-gl-inspect-example run build",
+    "deploy": "pnpm run demo:build && wrangler deploy",
     "publish:npm": "npm publish --access public",
     "publish:jsr": "pnpm dlx jsr publish"
   },
@@ -71,23 +74,30 @@
     "randomcolor": "^0.6.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.2.2",
-    "@commitlint/config-conventional": "^21.2.2",
-    "@commitlint/types": "^21.2.0",
-    "@types/node": "^26.2.0",
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "@commitlint/types": "^21.2.3",
+    "@types/node": "^26.6.5",
     "@types/randomcolor": "^0.5.9",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
-    "lint-staged": "^17.3.0",
-    "maplibre-gl": "^6.3.0",
+    "lint-staged": "^17.6.0",
+    "maplibre-gl": "^6.15.0",
     "typescript": "^7.0.2",
-    "vite-plus": "^0.2.9"
+    "vite-plus": "catalog:",
+    "wrangler": "^4.152.0"
   },
   "peerDependencies": {
     "maplibre-gl": ">=5.0.0"
   },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=26.x"
+    }
+  },
   "engines": {
     "node": ">=24.0.0"
   },
-  "packageManager": "pnpm@11.20.0+sha512.9a6f330a95b66446ea088faf1521405a8a01f07fde7124cc9958dfed52d4bb436737e65b08f85f37b46fcba375092558ac51262b816844b22f63406ed166bfee"
+  "packageManager": "pnpm@12.15.0+sha512.b3951d6d6ff4a9f13dc7cf56cd28d2b8eb37dbcc9c68e52e1e1191873ea9f82a017287ab50baadc5ccc494f036c67c0e47eb13608c2fa36f47711b61ea128e61"
 }
