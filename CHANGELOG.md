@@ -7,6 +7,13 @@
 
 
 
+## [0.0.12](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.11...v0.0.12) (2026-10-28)
+
+
+### Documentation
+
+* link live demo and related projects ([#526](https://github.com/geoql/maplibre-gl-inspect/issues/526)) ([15a18e3](https://github.com/geoql/maplibre-gl-inspect/commit/15a18e36557770d8c8309dbbebdc49ecb1981846))
+
 ## [0.0.11](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.10...v0.0.11) (2026-10-25)
 
 
