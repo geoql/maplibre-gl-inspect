@@ -7,6 +7,18 @@
 
 
 
+## [0.0.11](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.10...v0.0.11) (2026-10-25)
+
+
+### Features
+
+* **demo:** enable ga4 ([#525](https://github.com/geoql/maplibre-gl-inspect/issues/525)) ([b78dc9f](https://github.com/geoql/maplibre-gl-inspect/commit/b78dc9fd5eb2a8eb32f209c31a21c000c2aeed38))
+
+
+### Miscellaneous
+
+* move the demo to cloudflare workers, pnpm and latest deps ([#523](https://github.com/geoql/maplibre-gl-inspect/issues/523)) ([c1087e1](https://github.com/geoql/maplibre-gl-inspect/commit/c1087e175b15115cc85becc966dec2c70698a63f))
+
 ## [0.0.10](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.9...v0.0.10) (2026-08-14)
 
 
