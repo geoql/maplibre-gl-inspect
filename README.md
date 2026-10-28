@@ -7,11 +7,11 @@
 [![npm type definitions](https://img.shields.io/npm/types/maplibre-gl-inspect?logo=typescript)](https://github.com/geoql/maplibre-gl-inspect/blob/main/package.json)
 [![GitHub release](https://img.shields.io/github/v/release/geoql/maplibre-gl-inspect?sort=semver&logo=github)](https://github.com/geoql/maplibre-gl-inspect/releases)
 
+**[Live demo](https://maplibre-gl-inspect.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-inspect)** · [npm](https://www.npmjs.com/package/maplibre-gl-inspect) · [JSR](https://jsr.io/@geoql/maplibre-gl-inspect)
+
 Add an inspect control to [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js) to view all features of the vector sources and allows hovering over features to see their properties.
 
 **Requires [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js) >= 5.0.0**
-
-**Live demo: [maplibre-gl-inspect.geoql.in](https://maplibre-gl-inspect.geoql.in)**
 
 ![Maplibre GL Inspect Preview](https://cloud.githubusercontent.com/assets/1288339/21744637/11759412-d51a-11e6-9581-f26741fcd182.gif)
 
@@ -207,6 +207,17 @@ pnpm run deploy
 ## Credits
 
 Fork of [@acalcutt's maplibre-gl-inspect](https://github.com/acalcutt/maplibre-gl-inspect), which is a fork of [@lukasmartinelli's mapbox-gl-inspect](https://github.com/lukasmartinelli/mapbox-gl-inspect).
+
+## More from the author
+
+- [maplibre-gl-draw-circle](https://maplibre-gl-draw-circle.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-inspect) — draw and edit circles on a MapLibre map
+- [maplibre-gl-compare](https://maplibre-gl-compare.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-inspect) — swipe-style map comparison control
+- [maplibre-gl-wind](https://maplibre-gl-wind.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-inspect) — wind particle animation layer
+- [maplibre-gl-starfield](https://maplibre-gl-starfield.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-inspect) — Three.js starfield skybox for globe maps
+- [v-maplibre](https://v-maplibre.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-inspect) — 50+ Vue 3 components for MapLibre GL
+- [mapcn-vue](https://mapcn-vue.geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-inspect) — shadcn-vue map components you copy into your app
+
+See every project at [vinayakkulkarni.dev/projects](https://vinayakkulkarni.dev/projects?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-inspect) and [geoql.in](https://geoql.in/?utm_source=github&utm_medium=readme&utm_campaign=maplibre-gl-inspect).
 
 ## License
 
