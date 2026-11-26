@@ -109,4 +109,57 @@ describe('renderPopup', () => {
     );
     expect(html).toContain('{"name":"Pond"}');
   });
+
+  it('escapes HTML in property values so tile data cannot inject markup', () => {
+    const payload = '<img src=x onerror="window.__xss=1">';
+    const feature: RenderPopupFeature = {
+      source: 'upload',
+      layer: {
+        id: 'poi',
+        type: 'circle',
+        source: 'upload',
+        'source-layer': 'poi',
+      },
+      geometry: { type: 'Point' },
+      properties: { name: payload, nested: { html: '<b>x</b>' } },
+    };
+
+    const html = renderPopup([feature]);
+
+    expect(html).not.toContain('<img');
+    expect(html).not.toContain('<b>');
+    expect(html).toContain(
+      'name</div><div class="maplibregl-inspect-property-value">' +
+        '&lt;img src=x onerror="window.__xss=1"&gt;</div>',
+    );
+    expect(html).toContain('{"html":"&lt;b&gt;x&lt;/b&gt;"}');
+  });
+
+  it('escapes HTML in layer ids and property names', () => {
+    const feature: RenderPopupFeature = {
+      source: 'upload',
+      layer: {
+        id: 'x',
+        type: 'circle',
+        source: 'upload',
+        'source-layer': '<svg onload=alert(1)>',
+      },
+      geometry: { type: 'Point' },
+      properties: { '<script>a</script>': 'v', 'a&b': 1 },
+    };
+
+    const html = renderPopup([feature]);
+
+    expect(html).not.toContain('<svg');
+    expect(html).not.toContain('<script');
+    expect(html).toContain(
+      '<div class="maplibregl-inspect-layer">&lt;svg onload=alert(1)&gt;</div>',
+    );
+    expect(html).toContain(
+      '<div class="maplibregl-inspect-property-name">&lt;script&gt;a&lt;/script&gt;</div>',
+    );
+    expect(html).toContain(
+      '<div class="maplibregl-inspect-property-name">a&amp;b</div>',
+    );
+  });
 });
