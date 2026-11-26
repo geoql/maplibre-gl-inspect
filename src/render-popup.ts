@@ -1,12 +1,19 @@
 import type { RenderPopupFeature, RenderPopupProperty } from './types';
 
+// Tile data is untrusted: layer ids, property names and values come from
+// whoever produced the tile. The popup is handed to Popup#setHTML, so every
+// data string must be escaped before it is placed in the markup. All data
+// lands in element text (never in an attribute), so &, < and > are enough.
+const escapeHtml = (text: string) =>
+  text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
 const displayValue = (
   value: RenderPopupProperty[keyof RenderPopupProperty],
 ) => {
-  if (typeof value === 'undefined' || value === null) return value;
-  if (value instanceof Date) return value.toLocaleString();
-  if (typeof value === 'object') return JSON.stringify(value);
-  return value.toString();
+  if (typeof value === 'undefined' || value === null) return String(value);
+  if (value instanceof Date) return escapeHtml(value.toLocaleString());
+  if (typeof value === 'object') return escapeHtml(JSON.stringify(value));
+  return escapeHtml(value.toString());
 };
 
 const renderProperty = <
@@ -19,7 +26,7 @@ const renderProperty = <
     `${
       '<div class="maplibregl-inspect-property">' +
       '<div class="maplibregl-inspect-property-name">'
-    }${propertyName}</div>` +
+    }${escapeHtml(propertyName)}</div>` +
     `<div class="maplibregl-inspect-property-value">${displayValue(
       property,
     )}</div>` +
@@ -28,7 +35,7 @@ const renderProperty = <
 };
 
 const renderLayer = (layerId: string) => {
-  return `<div class="maplibregl-inspect-layer">${layerId}</div>`;
+  return `<div class="maplibregl-inspect-layer">${escapeHtml(layerId)}</div>`;
 };
 
 const renderProperties = (feature: RenderPopupFeature) => {
