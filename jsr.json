@@ -1,6 +1,6 @@
 {
   "name": "@geoql/maplibre-gl-inspect",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "exports": "./dist/index.js",
   "publish": {
     "include": [

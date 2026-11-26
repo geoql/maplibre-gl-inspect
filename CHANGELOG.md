@@ -7,6 +7,13 @@
 
 
 
+## [0.0.13](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.12...v0.0.13) (2026-11-26)
+
+
+### Bug Fixes
+
+* **popup:** escape tile data before it reaches setHTML ([#538](https://github.com/geoql/maplibre-gl-inspect/issues/538)) ([54b1d30](https://github.com/geoql/maplibre-gl-inspect/commit/54b1d303998e339b8056862291bea7a3a15ca997))
+
 ## [0.0.12](https://github.com/geoql/maplibre-gl-inspect/compare/v0.0.11...v0.0.12) (2026-10-28)
 
 
